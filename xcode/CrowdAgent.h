@@ -11,6 +11,9 @@
 
 #include <stdio.h>
 
+#include "cinder/app/RendererGl.h"
+#include "cinder/gl/gl.h"
+
 using namespace ci;
 
 class CrowdAgent {
@@ -59,6 +62,9 @@ public:
     
     // Perform integration (acc->vel->pos)
     void updatePos();
+    
+    // Draw Agent
+    void draw();
     
 };
 
