@@ -73,7 +73,16 @@ public:
     
 private:
     // Solves all forces (repulsive and attractive)
-    vec2 solveForces();
+    vec2 solvePushingForces();
+    vec2 solveFrictiongForces();
+    vec2 solveSocialForces();
+    vec2 solveLRLCAForces();
+    
+    vec2 sumForces(vec2 pushingForce, vec2 frictionForce, vec2 socialForce, vec2 LRLCAForce);
+    
+    // Converts a Force to Acceleration based on agent's mass
+    vec2 forceToAcceleration(vec2 f);
+    
     
 };
 

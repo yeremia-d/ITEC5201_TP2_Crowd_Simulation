@@ -11,17 +11,15 @@
 
 #include <stdio.h>
 
-using namespace ci;
-
-namespace VectorOps {
+namespace VectorUtils {
     
     class VectorUtils {
     public:
-        vec2 Add(vec2 v1, vec2 v2); // Adds 2 vectors of type vec2
-        vec3 Add(vec3 v1, vec3 v2); // Adds 2 vectos of type vec3
+        static ci::vec2 Add(ci::vec2 v1, ci::vec2 v2);   // Adds 2 vectors of type vec2
+        static ci::vec3 Add(ci::vec3 v1, ci::vec3 v2);   // Adds 2 vectos of type vec3
         
-        vec2 ScalarMult(vec2 v, float s); // Multiplies a vector, of type vec2, with a scalar
-        vec3 ScalarMult(vec3 v, float s); // Multiplies a vector, of type vec3, with a scalar
+        static ci::vec2 ScalarMult(ci::vec2 v, float s); // Multiplies a vector, of type vec2, with a scalar
+        static ci::vec3 ScalarMult(ci::vec3 v, float s); // Multiplies a vector, of type vec3, with a scalar
     };
 
 }

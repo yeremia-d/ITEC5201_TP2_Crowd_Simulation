@@ -18,6 +18,7 @@ CrowdAgent::CrowdAgent(){
     this->orig_pos  = vec2();
     this->dest_pos  = vec2();
     this->radius    = 10.0f;
+    this->mass      = 10.0f;
 }
 
 CrowdAgent::CrowdAgent(float radius) : CrowdAgent() {
@@ -36,15 +37,43 @@ CrowdAgent::CrowdAgent(vec2 orig_pos, vec2 dest_pos) : CrowdAgent() {
 }
 
 void CrowdAgent::update() {
-    vec2 forces = solveForces(); // Solve Forces
+    // get neighbors
     
-    acc = VectorOps::Add(forces, acc);
+    // calc collision
+    
+        // if collision occurs
+            // conservation of momentum
+    
+            // recalculate new path based on density grid
+    
+    // perform RVO Long-Range LCA
+    
+    // perform RVO LCA
+    
+    // calc pushing force
+    
+    // calc friction force
+    
+    // calc social forces
+    
+    // sum forces
+    vec2 totalForces = vec2();
+    
+    // Integration
+    vec2 accleration = forceToAcceleration(totalForces);                    // get acceleration
+    vec2 velocity    = VectorUtils::VectorUtils::Add(cVel, accleration);    // Integrate acceleration for new velocity
+    vec2 newPosition = VectorUtils::VectorUtils::Add(pos, velocity);        // integrate velocity for new position
+    
+    // Update Agent's Values
+    acc     = accleration;  // set current acceleration
+    cVel    = velocity;     // set current agent velocity
+    pos     = newPosition;  // set current position to new position
 }
 
+// Agent Draw Function
 void CrowdAgent::draw() {
     gl::drawSolidCircle(pos, radius);
 }
-
 
 // Class Setters
 void CrowdAgent::setPos(vec2 pos)                { this->pos   = pos;  }
@@ -57,3 +86,11 @@ vec2 CrowdAgent::getPos()               { return pos;  }
 vec2 CrowdAgent::getCurrentVelocity()   { return cVel; }
 vec2 CrowdAgent::getPreferredVelocity() { return pVel; }
 vec2 CrowdAgent::getAcc()               { return acc;  }
+
+
+// Computes the acceleration of an agent based on the applied forces and mass
+vec2 CrowdAgent::forceToAcceleration(vec2 f) { return VectorUtils::VectorUtils::ScalarMult(f, 1/mass); }
+
+// Force Solvers
+
+
