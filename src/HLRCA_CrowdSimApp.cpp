@@ -17,13 +17,14 @@ class HLRCA_CrowdSimApp : public App {
 	void update() override;
 	void draw() override;
     
-    
+    // Test
     CrowdAgent a;
     
 };
 
 void HLRCA_CrowdSimApp::setup()
 {
+    // Test
     a = CrowdAgent();
 }
 
@@ -38,6 +39,8 @@ void HLRCA_CrowdSimApp::update()
 void HLRCA_CrowdSimApp::draw()
 {
 	gl::clear( Color( 0, 0, 0 ) );
+    
+    //Test
     a.draw();
 }
 

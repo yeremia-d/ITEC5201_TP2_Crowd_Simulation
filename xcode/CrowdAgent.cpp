@@ -35,6 +35,12 @@ CrowdAgent::CrowdAgent(vec2 orig_pos, vec2 dest_pos) : CrowdAgent() {
     this->dest_pos  = dest_pos;
 }
 
+void CrowdAgent::update() {
+    vec2 forces = solveForces(); // Solve Forces
+    
+    acc = VectorOps::Add(forces, acc);
+}
+
 void CrowdAgent::draw() {
     gl::drawSolidCircle(pos, radius);
 }

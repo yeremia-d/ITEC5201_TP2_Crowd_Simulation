@@ -26,10 +26,10 @@ public:
     vec2 RungeKutta2(vec2 acc, vec2 vel, vec2 pos);
     
     // 4th Order Runge-Kutta
-    vec2 RungeKutta4(vec2 acc, vec2 vel, vec2 pos);
+    vec2 RungeKutta4(vec2 dVal, vec2 initVal, int subStep);
     
     // Explicit Euler Method
-    vec2 ExpEuler(vec2 acc, vec2 vel, vec2 pos);
+    vec2 ExpEuler(vec2 dVal, vec2 initVal, int subStep);
     
 };
 

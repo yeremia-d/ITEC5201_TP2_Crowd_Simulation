@@ -20,6 +20,7 @@
 		0EB44ACA1E971264007B3A91 /* CrowdSimGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EB44AC81E971264007B3A91 /* CrowdSimGroup.cpp */; };
 		0EB44ACD1E972326007B3A91 /* CrowdAgent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EB44ACB1E972326007B3A91 /* CrowdAgent.cpp */; };
 		0EB44AD01E973D28007B3A91 /* Integrator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EB44ACE1E973D28007B3A91 /* Integrator.cpp */; };
+		0EB44AD31E9C8078007B3A91 /* VectorUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EB44AD11E9C8078007B3A91 /* VectorUtils.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		96E96405C9804A2180FE2177 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3CEF4C6650E64D57A68F93D2 /* CinderApp.icns */; };
@@ -44,6 +45,8 @@
 		0EB44ACC1E972326007B3A91 /* CrowdAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrowdAgent.h; sourceTree = "<group>"; };
 		0EB44ACE1E973D28007B3A91 /* Integrator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Integrator.cpp; sourceTree = "<group>"; };
 		0EB44ACF1E973D28007B3A91 /* Integrator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Integrator.h; sourceTree = "<group>"; };
+		0EB44AD11E9C8078007B3A91 /* VectorUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VectorUtils.cpp; sourceTree = "<group>"; };
+		0EB44AD21E9C8078007B3A91 /* VectorUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VectorUtils.h; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -97,6 +100,8 @@
 				0EB44ACC1E972326007B3A91 /* CrowdAgent.h */,
 				0EB44ACE1E973D28007B3A91 /* Integrator.cpp */,
 				0EB44ACF1E973D28007B3A91 /* Integrator.h */,
+				0EB44AD11E9C8078007B3A91 /* VectorUtils.cpp */,
+				0EB44AD21E9C8078007B3A91 /* VectorUtils.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -244,6 +249,7 @@
 				0EB44AD01E973D28007B3A91 /* Integrator.cpp in Sources */,
 				0EB44ACD1E972326007B3A91 /* CrowdAgent.cpp in Sources */,
 				0EB44ACA1E971264007B3A91 /* CrowdSimGroup.cpp in Sources */,
+				0EB44AD31E9C8078007B3A91 /* VectorUtils.cpp in Sources */,
 				0EB44AC71E970E09007B3A91 /* CrowdSim.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

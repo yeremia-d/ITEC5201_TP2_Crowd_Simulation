@@ -14,6 +14,8 @@
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
 
+#include "VectorUtils.h"
+
 using namespace ci;
 
 class CrowdAgent {
@@ -31,8 +33,8 @@ private:
     
     float radius;      // Radius of Agent
     
-    // Private Integration functions
-    // TODO
+    float mass;        // Agent Mass
+    
     
 public:
     
@@ -61,10 +63,17 @@ public:
     vec2 getAcc();
     
     // Perform integration (acc->vel->pos)
-    void updatePos();
+    void update();
     
     // Draw Agent
     void draw();
+    
+    // Updates Neighbors
+    void updateNeighbors();
+    
+private:
+    // Solves all forces (repulsive and attractive)
+    vec2 solveForces();
     
 };
 
