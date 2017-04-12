@@ -29,11 +29,13 @@ CrowdAgent::CrowdAgent(float radius, vec2 orig_pos, vec2 dest_pos) : CrowdAgent(
     this->radius    = radius;
     this->orig_pos  = orig_pos;
     this->dest_pos  = dest_pos;
+    this->pos       = orig_pos;
 }
 
 CrowdAgent::CrowdAgent(vec2 orig_pos, vec2 dest_pos) : CrowdAgent() {
     this->orig_pos  = orig_pos;
     this->dest_pos  = dest_pos;
+    this->pos       = orig_pos;
 }
 
 void CrowdAgent::update() {

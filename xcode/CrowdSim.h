@@ -10,22 +10,24 @@
 #define CrowdSim_hpp
 
 #include <stdio.h>
+#include <vector>
+#include "CrowdSimGroup.h"
 
 class CrowdSim {
 
 //** Member Variables **//
 
 private:
-static int groupId_ITERATOR;    // Group ID Iterator
+    static int              groupId_ITERATOR;    // Group ID Iterator
+    std::vector<AgentGroup> agentGroups;
 
 
 //** Member Functions **//
 
 public:
-void init();                    // Initializes the crowd simulation
-void addGroup();                // Adds group of agents to the crowd simulation
-void addGroup(int numAgents);   // Adds new group with a specified number of agents
-void update();                  // Updates the Simulation (simulation and integration stage)
+    void initBidirectionalSim();    // Initializes the crowd simulation
+    void update();                  // Updates the Simulation (simulation and integration stage)
+    void draw();                    // Draw agents in the simulation
 };
 
 #endif /* CrowdSim_hpp */

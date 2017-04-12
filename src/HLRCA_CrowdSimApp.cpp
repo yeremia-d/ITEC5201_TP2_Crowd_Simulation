@@ -4,7 +4,7 @@
 
 // TEST
 
-#include "CrowdAgent.h"
+#include "CrowdSim.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -17,15 +17,17 @@ class HLRCA_CrowdSimApp : public App {
 	void update() override;
 	void draw() override;
     
+    CrowdSim sim;
+    
     // Test
-    CrowdAgent a;
+    //CrowdAgent a;
     
 };
 
 void HLRCA_CrowdSimApp::setup()
 {
     // Test
-    a = CrowdAgent();
+    sim.initBidirectionalSim();
 }
 
 void HLRCA_CrowdSimApp::mouseDown( MouseEvent event )
@@ -34,6 +36,7 @@ void HLRCA_CrowdSimApp::mouseDown( MouseEvent event )
 
 void HLRCA_CrowdSimApp::update()
 {
+    sim.update();
 }
 
 void HLRCA_CrowdSimApp::draw()
@@ -41,7 +44,7 @@ void HLRCA_CrowdSimApp::draw()
 	gl::clear( Color( 0, 0, 0 ) );
     
     //Test
-    a.draw();
+    sim.draw();
 }
 
 CINDER_APP( HLRCA_CrowdSimApp, RendererGl, [&]( App::Settings *settings ) {
