@@ -26,5 +26,14 @@ void CrowdSim::initBidirectionalSim() {
     
 }
 
-void CrowdSim::update() { for(int i = 0; i < agentGroups.size(); i++) agentGroups[i].update(); }
-void CrowdSim::draw()   { for(int i = 0; i < agentGroups.size(); i++) agentGroups[i].draw();   }
+void CrowdSim::update() {
+    for(int i = 0; i < agentGroups.size(); i++) {
+        agentGroups[i].update();
+    }
+}
+
+void CrowdSim::draw() {
+    for(int i = 0; i < agentGroups.size(); i++) {
+        agentGroups[i].draw();
+    }
+}

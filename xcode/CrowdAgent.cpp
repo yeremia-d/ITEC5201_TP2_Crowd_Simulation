@@ -91,7 +91,9 @@ vec2 CrowdAgent::getAcc()               { return acc;  }
 
 
 // Computes the acceleration of an agent based on the applied forces and mass
-vec2 CrowdAgent::forceToAcceleration(vec2 f) { return VectorUtils::VectorUtils::ScalarMult(f, 1/mass); }
+vec2 CrowdAgent::forceToAcceleration(vec2 f) {
+    return VectorUtils::VectorUtils::ScalarMult(f, 1/mass);
+}
 
 // Force Solvers
 

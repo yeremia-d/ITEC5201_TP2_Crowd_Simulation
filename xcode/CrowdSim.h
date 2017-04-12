@@ -25,7 +25,7 @@ private:
 //** Member Functions **//
 
 public:
-    void initBidirectionalSim();    // Initializes the crowd simulation
+    void initBidirectionalSim();    // Initializes a bidirectional flow crowd simulation
     void update();                  // Updates the Simulation (simulation and integration stage)
     void draw();                    // Draw agents in the simulation
 };

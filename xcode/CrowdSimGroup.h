@@ -19,7 +19,8 @@
 class AgentGroup {
 
 private:
-    int groupId, size;
+    int groupId;
+    int size;
     std::vector<CrowdAgent> agents;
     
     
@@ -34,7 +35,4 @@ public:
     void update();
     
     void draw();
-    
-    
-    
 };
