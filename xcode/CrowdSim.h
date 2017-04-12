@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <vector>
 #include "CrowdSimGroup.h"
+#include "CrowdAgent.h"
 
 class CrowdSim {
 
@@ -19,13 +20,14 @@ class CrowdSim {
 
 private:
     static int              groupId_ITERATOR;    // Group ID Iterator
-    std::vector<AgentGroup> agentGroups;
-
+    std::vector<AgentGroup> agentGroups;         // List of agent groups
+    CrowdAgent * agentList[];
 
 //** Member Functions **//
 
 public:
     void initBidirectionalSim();    // Initializes a bidirectional flow crowd simulation
+    void buildAgentList();          // Builds the list of agents
     void update();                  // Updates the Simulation (simulation and integration stage)
     void draw();                    // Draw agents in the simulation
 };

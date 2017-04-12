@@ -32,6 +32,9 @@ void CrowdSim::initBidirectionalSim() {
     agentGroups.push_back(g1);
     agentGroups.push_back(g2);
     
+    // Build Agent List
+    buildAgentList();
+    
 }
 
 // Update all groups
@@ -46,4 +49,8 @@ void CrowdSim::draw() {
     for(int i = 0; i < agentGroups.size(); i++) {
         agentGroups[i].draw();
     }
+}
+
+void CrowdSim::buildAgentList(){
+    
 }

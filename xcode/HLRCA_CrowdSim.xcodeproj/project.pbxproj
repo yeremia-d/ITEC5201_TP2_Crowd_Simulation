@@ -21,6 +21,11 @@
 		0EB44ACD1E972326007B3A91 /* CrowdAgent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EB44ACB1E972326007B3A91 /* CrowdAgent.cpp */; };
 		0EB44AD01E973D28007B3A91 /* Integrator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EB44ACE1E973D28007B3A91 /* Integrator.cpp */; };
 		0EB44AD31E9C8078007B3A91 /* VectorUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EB44AD11E9C8078007B3A91 /* VectorUtils.cpp */; };
+		0EB44AE21E9ED3A1007B3A91 /* Agent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EB44AD71E9ED3A1007B3A91 /* Agent.cpp */; };
+		0EB44AE31E9ED3A1007B3A91 /* KdTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EB44ADA1E9ED3A1007B3A91 /* KdTree.cpp */; };
+		0EB44AE41E9ED3A1007B3A91 /* Obstacle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EB44ADC1E9ED3A1007B3A91 /* Obstacle.cpp */; };
+		0EB44AE51E9ED3A1007B3A91 /* RVOSimulator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EB44ADF1E9ED3A1007B3A91 /* RVOSimulator.cpp */; };
+		0EB44AE71E9ED4C2007B3A91 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 0EB44AE61E9ED4C2007B3A91 /* README */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		96E96405C9804A2180FE2177 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3CEF4C6650E64D57A68F93D2 /* CinderApp.icns */; };
@@ -47,6 +52,18 @@
 		0EB44ACF1E973D28007B3A91 /* Integrator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Integrator.h; sourceTree = "<group>"; };
 		0EB44AD11E9C8078007B3A91 /* VectorUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VectorUtils.cpp; sourceTree = "<group>"; };
 		0EB44AD21E9C8078007B3A91 /* VectorUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VectorUtils.h; sourceTree = "<group>"; };
+		0EB44AD71E9ED3A1007B3A91 /* Agent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Agent.cpp; path = RVO2Lib/Agent.cpp; sourceTree = "<group>"; };
+		0EB44AD81E9ED3A1007B3A91 /* Agent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Agent.h; path = RVO2Lib/Agent.h; sourceTree = "<group>"; };
+		0EB44AD91E9ED3A1007B3A91 /* Definitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Definitions.h; path = RVO2Lib/Definitions.h; sourceTree = "<group>"; };
+		0EB44ADA1E9ED3A1007B3A91 /* KdTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = KdTree.cpp; path = RVO2Lib/KdTree.cpp; sourceTree = "<group>"; };
+		0EB44ADB1E9ED3A1007B3A91 /* KdTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KdTree.h; path = RVO2Lib/KdTree.h; sourceTree = "<group>"; };
+		0EB44ADC1E9ED3A1007B3A91 /* Obstacle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Obstacle.cpp; path = RVO2Lib/Obstacle.cpp; sourceTree = "<group>"; };
+		0EB44ADD1E9ED3A1007B3A91 /* Obstacle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Obstacle.h; path = RVO2Lib/Obstacle.h; sourceTree = "<group>"; };
+		0EB44ADE1E9ED3A1007B3A91 /* RVO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RVO.h; path = RVO2Lib/RVO.h; sourceTree = "<group>"; };
+		0EB44ADF1E9ED3A1007B3A91 /* RVOSimulator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RVOSimulator.cpp; path = RVO2Lib/RVOSimulator.cpp; sourceTree = "<group>"; };
+		0EB44AE01E9ED3A1007B3A91 /* RVOSimulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RVOSimulator.h; path = RVO2Lib/RVOSimulator.h; sourceTree = "<group>"; };
+		0EB44AE11E9ED3A1007B3A91 /* Vector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vector2.h; path = RVO2Lib/Vector2.h; sourceTree = "<group>"; };
+		0EB44AE61E9ED4C2007B3A91 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README; path = RVO2Lib/README; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -91,19 +108,55 @@
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				0EB44AD61E9ED32D007B3A91 /* RVO2Library */,
 				E99667D27CBB451AB609CB66 /* HLRCA_CrowdSimApp.cpp */,
+				0EB44AD41E9ED2F5007B3A91 /* CrowdSim */,
+				0EB44AD51E9ED311007B3A91 /* HelperUtilities */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		0EB44AD41E9ED2F5007B3A91 /* CrowdSim */ = {
+			isa = PBXGroup;
+			children = (
 				0EB44AC51E970E09007B3A91 /* CrowdSim.cpp */,
 				0EB44AC61E970E09007B3A91 /* CrowdSim.h */,
 				0EB44AC81E971264007B3A91 /* CrowdSimGroup.cpp */,
 				0EB44AC91E971264007B3A91 /* CrowdSimGroup.h */,
 				0EB44ACB1E972326007B3A91 /* CrowdAgent.cpp */,
 				0EB44ACC1E972326007B3A91 /* CrowdAgent.h */,
+			);
+			name = CrowdSim;
+			sourceTree = "<group>";
+		};
+		0EB44AD51E9ED311007B3A91 /* HelperUtilities */ = {
+			isa = PBXGroup;
+			children = (
 				0EB44ACE1E973D28007B3A91 /* Integrator.cpp */,
 				0EB44ACF1E973D28007B3A91 /* Integrator.h */,
 				0EB44AD11E9C8078007B3A91 /* VectorUtils.cpp */,
 				0EB44AD21E9C8078007B3A91 /* VectorUtils.h */,
 			);
-			name = Source;
+			name = HelperUtilities;
+			sourceTree = "<group>";
+		};
+		0EB44AD61E9ED32D007B3A91 /* RVO2Library */ = {
+			isa = PBXGroup;
+			children = (
+				0EB44AE61E9ED4C2007B3A91 /* README */,
+				0EB44AD71E9ED3A1007B3A91 /* Agent.cpp */,
+				0EB44AD81E9ED3A1007B3A91 /* Agent.h */,
+				0EB44AD91E9ED3A1007B3A91 /* Definitions.h */,
+				0EB44ADA1E9ED3A1007B3A91 /* KdTree.cpp */,
+				0EB44ADB1E9ED3A1007B3A91 /* KdTree.h */,
+				0EB44ADC1E9ED3A1007B3A91 /* Obstacle.cpp */,
+				0EB44ADD1E9ED3A1007B3A91 /* Obstacle.h */,
+				0EB44ADE1E9ED3A1007B3A91 /* RVO.h */,
+				0EB44ADF1E9ED3A1007B3A91 /* RVOSimulator.cpp */,
+				0EB44AE01E9ED3A1007B3A91 /* RVOSimulator.h */,
+				0EB44AE11E9ED3A1007B3A91 /* Vector2.h */,
+			);
+			name = RVO2Library;
 			sourceTree = "<group>";
 		};
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
@@ -234,6 +287,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EB44AE71E9ED4C2007B3A91 /* README in Resources */,
 				96E96405C9804A2180FE2177 /* CinderApp.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -247,10 +301,14 @@
 			files = (
 				CC1F52E1E64A49FE964FEA35 /* HLRCA_CrowdSimApp.cpp in Sources */,
 				0EB44AD01E973D28007B3A91 /* Integrator.cpp in Sources */,
+				0EB44AE31E9ED3A1007B3A91 /* KdTree.cpp in Sources */,
 				0EB44ACD1E972326007B3A91 /* CrowdAgent.cpp in Sources */,
+				0EB44AE51E9ED3A1007B3A91 /* RVOSimulator.cpp in Sources */,
 				0EB44ACA1E971264007B3A91 /* CrowdSimGroup.cpp in Sources */,
+				0EB44AE21E9ED3A1007B3A91 /* Agent.cpp in Sources */,
 				0EB44AD31E9C8078007B3A91 /* VectorUtils.cpp in Sources */,
 				0EB44AC71E970E09007B3A91 /* CrowdSim.cpp in Sources */,
+				0EB44AE41E9ED3A1007B3A91 /* Obstacle.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,7 @@
 //
 
 #include "CrowdAgent.h"
+#include "RVO.h"
 
 using namespace ci;
 
