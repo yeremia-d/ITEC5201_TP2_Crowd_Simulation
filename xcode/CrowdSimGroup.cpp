@@ -8,13 +8,21 @@
 
 #include "CrowdSimGroup.h"
 
-AgentGroup::AgentGroup(int groupId) {
-    this->groupId = groupId;
-    size          = 0;
+AgentGroup::AgentGroup(int groupId, ci::Color agentColor) {
+    this->groupId       = groupId;
+    this->agentColor    = agentColor;
+    size                = 0;
 }
 
 void AgentGroup::addAgent(CrowdAgent agent) {
+    
+    // Sets agent color of current group
+    agent.setColor(agentColor);
+    
+    // Push agent to linked list data struct
     agents.push_back(agent);
+    
+    // Update size of the group
     size++;
 }
 

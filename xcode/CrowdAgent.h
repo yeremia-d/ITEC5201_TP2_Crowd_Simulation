@@ -35,6 +35,8 @@ private:
     
     float mass;        // Agent Mass
     
+    Color color;
+    
     
 public:
     
@@ -55,6 +57,7 @@ public:
     void setCurrentVelocity(vec2 cVel);
     void setPreferredVelocity(vec2 pVel);
     void setAcc(vec2 acc);
+    void setColor(Color color);
     
     // Getters
     vec2 getPos();

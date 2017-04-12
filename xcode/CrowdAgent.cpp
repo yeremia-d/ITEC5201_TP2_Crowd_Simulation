@@ -36,6 +36,7 @@ CrowdAgent::CrowdAgent(vec2 orig_pos, vec2 dest_pos) : CrowdAgent() {
     this->orig_pos  = orig_pos;
     this->dest_pos  = dest_pos;
     this->pos       = orig_pos;
+    this->color     = color;
 }
 
 void CrowdAgent::update() {
@@ -74,6 +75,7 @@ void CrowdAgent::update() {
 
 // Agent Draw Function
 void CrowdAgent::draw() {
+    gl::color(color);
     gl::drawSolidCircle(pos, radius);
 }
 
@@ -82,6 +84,7 @@ void CrowdAgent::setPos(vec2 pos)                { this->pos   = pos;  }
 void CrowdAgent::setCurrentVelocity(vec2 cVel)   { this->cVel  = cVel; }
 void CrowdAgent::setPreferredVelocity(vec2 pVel) { this->pVel  = pVel; }
 void CrowdAgent::setAcc(vec2 acc)                { this->acc   = acc;  }
+void CrowdAgent::setColor(Color color)           { this->color = color;}
 
 // Class Getters
 vec2 CrowdAgent::getPos()               { return pos;  }

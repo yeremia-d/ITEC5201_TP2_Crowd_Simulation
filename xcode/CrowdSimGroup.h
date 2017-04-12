@@ -21,12 +21,13 @@ class AgentGroup {
 private:
     int groupId;
     int size;
+    ci::Color agentColor;
     std::vector<CrowdAgent> agents;
     
     
 public:
     
-    AgentGroup(int groupId);
+    AgentGroup(int groupId, ci::Color agentColor);
     
     void addAgent(CrowdAgent agent);
     
