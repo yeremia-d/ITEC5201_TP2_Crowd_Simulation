@@ -57,7 +57,7 @@ void CrowdSim::draw() {
 void CrowdSim::buildAgentList(){
     
     // TODO: Only pushes one list in, need to do it for all
-    std::vector<CrowdAgent> a = * agentGroups[0].getAgents();
+    std::vector<CrowdAgent>& a = * agentGroups[0].getAgents();
     
     for(int i = 0; i < a.size(); i++) {
         agentList.push_back(&a[i]);
