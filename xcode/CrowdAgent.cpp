@@ -11,44 +11,51 @@
 
 using namespace ci;
 
-CrowdAgent::CrowdAgent(){
-    this->pos       = vec2();
-    this->cVel      = vec2();
-    this->pVel      = vec2();
-    this->acc       = vec2();
-    this->orig_pos  = vec2();
-    this->dest_pos  = vec2();
-    this->radius    = 10.0f;
-    this->mass      = 10.0f;
+CrowdAgent::CrowdAgent(RVOSimulator *sim, Vector2 originalPosition, Vector2 DestinationPosition) : RVO::Agent(sim) {
+    this->CA_Mass                   = 1.0f;
+    this->CA_Color                  = Color(1,1,1);
+    this->position_                 = originalPosition;
+    this->CA_OriginalPosition       = originalPosition;
+    this->CA_DestinationPosition    = DestinationPosition;
 }
 
-CrowdAgent::CrowdAgent(float radius) : CrowdAgent() {
-    this->radius = radius;
-}
-
-CrowdAgent::CrowdAgent(float radius, vec2 orig_pos, vec2 dest_pos) : CrowdAgent() {
-    this->radius    = radius;
-    this->orig_pos  = orig_pos;
-    this->dest_pos  = dest_pos;
-    this->pos       = orig_pos;
-}
-
-CrowdAgent::CrowdAgent(vec2 orig_pos, vec2 dest_pos) : CrowdAgent() {
-    this->orig_pos  = orig_pos;
-    this->dest_pos  = dest_pos;
-    this->pos       = orig_pos;
-    this->color     = color;
-}
+void CrowdAgent::setColor(Color color) { this->CA_Color = color;} // Sets Agent Color
 
 void CrowdAgent::update() {
     // get neighbors
     
+    
+    
+    // Solve forces
+    
+    // Integration
+    
+}
+
+// Agent Draw Function
+void CrowdAgent::draw() {
+    gl::color(CA_Color);
+    gl::drawSolidCircle(vec2(position_.x(), position_.y()), radius_);
+}
+
+
+
+
+
+// Computes the acceleration of an agent based on the applied forces and mass
+Vector2 CrowdAgent::forceToAcceleration(Vector2 f) { return f/CA_Mass; }
+
+
+// Force Solvers
+Vector2 CrowdAgent::solveForces() {
+    // Driving Force to Destination
+    
     // calc collision
     
-        // if collision occurs
-            // conservation of momentum
+    // if collision occurs
+    // conservation of momentum
     
-            // recalculate new path based on density grid
+    // recalculate new path based on density grid
     
     // perform RVO Long-Range LCA
     
@@ -60,50 +67,18 @@ void CrowdAgent::update() {
     
     // calc social forces
     
-    // sum forces
-    vec2 totalForces = vec2();
+    // Sum forces
+    Vector2 f_sum = Vector2();
     
-    // Integration
-    vec2 accleration = forceToAcceleration(totalForces);                    // get acceleration
-    vec2 velocity    = VectorUtils::VectorUtils::Add(cVel, accleration);    // Integrate acceleration for new velocity
-    vec2 newPosition = VectorUtils::VectorUtils::Add(pos, velocity);        // integrate velocity for new position
+    // Return the summed forces to be integrated
+    return f_sum;
+}
+
+Vector2 CrowdAgent::solveTargetForce() {
+    Vector2 targetForce = Vector2();
     
-    // Update Agent's Values
-    acc     = accleration;  // set current acceleration
-    cVel    = velocity;     // set current agent velocity
-    pos     = newPosition;  // set current position to new position
+    return targetForce;
 }
 
-// Agent Draw Function
-void CrowdAgent::draw() {
-    gl::color(color);
-    gl::drawSolidCircle(pos, radius);
-}
-
-// Class Setters
-void CrowdAgent::setPos(vec2 pos)                { this->pos   = pos;  }
-void CrowdAgent::setCurrentVelocity(vec2 cVel)   { this->cVel  = cVel; }
-void CrowdAgent::setPreferredVelocity(vec2 pVel) { this->pVel  = pVel; }
-void CrowdAgent::setAcc(vec2 acc)                { this->acc   = acc;  }
-void CrowdAgent::setColor(Color color)           { this->color = color;}
-
-// Class Getters
-vec2 CrowdAgent::getPos()               { return pos;  }
-vec2 CrowdAgent::getCurrentVelocity()   { return cVel; }
-vec2 CrowdAgent::getPreferredVelocity() { return pVel; }
-vec2 CrowdAgent::getAcc()               { return acc;  }
-
-
-// Computes the acceleration of an agent based on the applied forces and mass
-vec2 CrowdAgent::forceToAcceleration(vec2 f) {
-    return VectorUtils::VectorUtils::ScalarMult(f, 1/mass);
-}
-
-// Updates Neighbors
-void CrowdAgent::updateNeighbors(std::vector<CrowdAgent *> * agentList){
-    int i = 0;
-}
-
-// Force Solvers
 
 

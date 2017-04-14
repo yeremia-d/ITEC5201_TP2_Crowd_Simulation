@@ -10,61 +10,14 @@
 #include "CrowdAgent.h"
 void CrowdSim::initBidirectionalSim() {
     
-    // initialize agent groups
-    AgentGroup g1 = AgentGroup(0, ci::Color(1,0,0));
-    AgentGroup g2 = AgentGroup(1, ci::Color(0,1,0));
-    
-    // Initialize agent group 1
-    for(int i = 100; i <= 300; i += 50 ) {
-        for(int j = 100; j <= 550; j += 50) {
-            g1.addAgent( CrowdAgent( vec2(i,j), vec2(i +100, j) ) );
-        }
-    }
-    
-    // Initialize agent group 2
-    for(int k = 1000; k <= 1200; k += 50) {
-        for(int l = 300; l <= 450; l += 50) {
-            g2.addAgent( CrowdAgent(vec2(k, l), vec2(k, l)) );
-        }
-    }
-    
-    // push groups to the group stack
-    agentGroups.push_back(g1);
-    agentGroups.push_back(g2);
-    
-    // Build Agent List
-    buildAgentList();
-    
-    // Provides a reference for all agent lists
-    for(int i = 0; i < agentGroups.size(); i++) {
-        agentGroups[i].setAgentList(&agentList);
-    }
 }
 
 // Update all groups
 void CrowdSim::update() {
-    
-    for(int i = 0; i < agentGroups.size(); i++) {
-        agentGroups[i].update();
-    }
+
 }
 
 // Draws the agents in the groups
 void CrowdSim::draw() {
-    for(int i = 0; i < agentGroups.size(); i++) {
-        agentGroups[i].draw();
-    }
-}
 
-// Builds a list of all agents
-void CrowdSim::buildAgentList(){
-    
-    for(int i = 0; i < agentGroups.size(); i++) {
-        
-        std::vector<CrowdAgent>& a = * agentGroups[i].getAgents();
-        
-        for(int j = 0; j < a.size(); j++) {
-            agentList.push_back(&a[j]);
-        }
-    }
 }

@@ -20,6 +20,12 @@ namespace VectorUtils {
         
         static ci::vec2 ScalarMult(ci::vec2 v, float s); // Multiplies a vector, of type vec2, with a scalar
         static ci::vec3 ScalarMult(ci::vec3 v, float s); // Multiplies a vector, of type vec3, with a scalar
+        
+        static float VectorMag(ci::vec2 v);
+        static float VectorMag(ci::vec3 v);
+        
+        static ci::vec2 NormalizeVector(ci::vec2 v);
+        static ci::vec3 NormalizeVector(ci::vec3 v);
     };
 
 }

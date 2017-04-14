@@ -16,75 +16,58 @@
 
 #include "VectorUtils.h"
 
-using namespace ci;
+#include "Agent.h"
 
-class CrowdAgent {
+using namespace ci;
+using namespace RVO;
+
+class CrowdAgent : public Agent {
     
 private:
-    vec2 pos;          // Position
     
-    vec2 cVel;         // Current Velocity
-    vec2 pVel;         // Preferred Velocity
+    Vector2 CA_Acceleration;        // Acceleration
+    Vector2 CA_OriginalPosition;    // Starting position
+    Vector2 CA_DestinationPosition; // Agent Destination
     
-    vec2 acc;          // Acceleration
+    float CA_Mass;                  // Agent Mass
+    float CA_MaxAcceleration;       // Maximum Acceleration
     
-    vec2 orig_pos;     // Starting position
-    vec2 dest_pos;     // Agent Destination
+    Color CA_Color;                 // Agent Color
     
-    float radius;      // Radius of Agent
-    
-    float mass;        // Agent Mass
-    
-    Color color;
     
     
 public:
-    
-    // Default Constructor
-    CrowdAgent();
-    
-    // Constructor with Radius specified (static agent)
-    CrowdAgent(float radius);
-    
-    // Constructor with Radius and originating and destination
-    CrowdAgent(float radius, vec2 orig_pos, vec2 dest_pos);
-    
-    // Constructor with Default Radius but Originating and destination positions specified
-    CrowdAgent(vec2 orig_pos, vec2 dest_pos);
+    CrowdAgent(RVO::RVOSimulator * sim, Vector2 originalPosition, Vector2 DestinationPosition);
     
     // Setters
-    void setPos(vec2 pos);
-    void setCurrentVelocity(vec2 cVel);
-    void setPreferredVelocity(vec2 pVel);
-    void setAcc(vec2 acc);
     void setColor(Color color);
     
     // Getters
-    vec2 getPos();
-    vec2 getCurrentVelocity();
-    vec2 getPreferredVelocity();
-    vec2 getAcc();
+    Vector2 getPos();
+    Vector2 getCurrentVelocity();
+    Vector2 getPreferredVelocity();
+    Vector2 getAcc();
     
     // Perform integration (acc->vel->pos)
     void update();
     
     // Draw Agent
     void draw();
-    
-    // Updates Neighbors
-    void updateNeighbors(std::vector<CrowdAgent *> * agentList);
+
     
 private:
     // Solves all forces (repulsive and attractive)
-    vec2 solvePushingForces();
-    vec2 solveFrictiongForces();
-    vec2 solveSocialForces();
-    vec2 solveLRLCAForces();
+    Vector2 solvePushingForce();
+    Vector2 solveFrictiongForce();
+    Vector2 solveSocialForce();
+    Vector2 solveLRLCAForce();
     
-    vec2 sumForces(vec2 pushingForce, vec2 frictionForce, vec2 socialForce, vec2 LRLCAForce);
+    Vector2 solveTargetForce();    // Returns normalized vector towards the agent's target
+    
+    Vector2 solveForces();
     
     // Converts a Force to Acceleration based on agent's mass
-    vec2 forceToAcceleration(vec2 f);
+    Vector2 forceToAcceleration(Vector2 f);
     
     
 };

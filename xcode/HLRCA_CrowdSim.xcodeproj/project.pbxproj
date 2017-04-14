@@ -17,7 +17,6 @@
 		00B9955A1B128DF400A5C623 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995581B128DF400A5C623 /* IOKit.framework */; };
 		00B9955B1B128DF400A5C623 /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995591B128DF400A5C623 /* IOSurface.framework */; };
 		0EB44AC71E970E09007B3A91 /* CrowdSim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EB44AC51E970E09007B3A91 /* CrowdSim.cpp */; };
-		0EB44ACA1E971264007B3A91 /* CrowdSimGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EB44AC81E971264007B3A91 /* CrowdSimGroup.cpp */; };
 		0EB44ACD1E972326007B3A91 /* CrowdAgent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EB44ACB1E972326007B3A91 /* CrowdAgent.cpp */; };
 		0EB44AD01E973D28007B3A91 /* Integrator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EB44ACE1E973D28007B3A91 /* Integrator.cpp */; };
 		0EB44AD31E9C8078007B3A91 /* VectorUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EB44AD11E9C8078007B3A91 /* VectorUtils.cpp */; };
@@ -44,8 +43,6 @@
 		00B995591B128DF400A5C623 /* IOSurface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOSurface.framework; path = System/Library/Frameworks/IOSurface.framework; sourceTree = SDKROOT; };
 		0EB44AC51E970E09007B3A91 /* CrowdSim.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CrowdSim.cpp; sourceTree = "<group>"; };
 		0EB44AC61E970E09007B3A91 /* CrowdSim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrowdSim.h; sourceTree = "<group>"; };
-		0EB44AC81E971264007B3A91 /* CrowdSimGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CrowdSimGroup.cpp; sourceTree = "<group>"; };
-		0EB44AC91E971264007B3A91 /* CrowdSimGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrowdSimGroup.h; sourceTree = "<group>"; };
 		0EB44ACB1E972326007B3A91 /* CrowdAgent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CrowdAgent.cpp; sourceTree = "<group>"; };
 		0EB44ACC1E972326007B3A91 /* CrowdAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrowdAgent.h; sourceTree = "<group>"; };
 		0EB44ACE1E973D28007B3A91 /* Integrator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Integrator.cpp; sourceTree = "<group>"; };
@@ -121,8 +118,6 @@
 			children = (
 				0EB44AC51E970E09007B3A91 /* CrowdSim.cpp */,
 				0EB44AC61E970E09007B3A91 /* CrowdSim.h */,
-				0EB44AC81E971264007B3A91 /* CrowdSimGroup.cpp */,
-				0EB44AC91E971264007B3A91 /* CrowdSimGroup.h */,
 				0EB44ACB1E972326007B3A91 /* CrowdAgent.cpp */,
 				0EB44ACC1E972326007B3A91 /* CrowdAgent.h */,
 			);
@@ -304,7 +299,6 @@
 				0EB44AE31E9ED3A1007B3A91 /* KdTree.cpp in Sources */,
 				0EB44ACD1E972326007B3A91 /* CrowdAgent.cpp in Sources */,
 				0EB44AE51E9ED3A1007B3A91 /* RVOSimulator.cpp in Sources */,
-				0EB44ACA1E971264007B3A91 /* CrowdSimGroup.cpp in Sources */,
 				0EB44AE21E9ED3A1007B3A91 /* Agent.cpp in Sources */,
 				0EB44AD31E9C8078007B3A91 /* VectorUtils.cpp in Sources */,
 				0EB44AC71E970E09007B3A91 /* CrowdSim.cpp in Sources */,
