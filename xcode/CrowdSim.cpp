@@ -35,9 +35,10 @@ void CrowdSim::initBidirectionalSim() {
     // Build Agent List
     buildAgentList();
     
-    // TODO: Only pushes one list in, need to do it for all
-    agentGroups[0].setAgentList(&agentList);
-    
+    // Provides a reference for all agent lists
+    for(int i = 0; i < agentGroups.size(); i++) {
+        agentGroups[i].setAgentList(&agentList);
+    }
 }
 
 // Update all groups
@@ -48,19 +49,22 @@ void CrowdSim::update() {
     }
 }
 
+// Draws the agents in the groups
 void CrowdSim::draw() {
     for(int i = 0; i < agentGroups.size(); i++) {
         agentGroups[i].draw();
     }
 }
 
+// Builds a list of all agents
 void CrowdSim::buildAgentList(){
     
-    // TODO: Only pushes one list in, need to do it for all
-    std::vector<CrowdAgent>& a = * agentGroups[0].getAgents();
-    
-    for(int i = 0; i < a.size(); i++) {
-        agentList.push_back(&a[i]);
+    for(int i = 0; i < agentGroups.size(); i++) {
+        
+        std::vector<CrowdAgent>& a = * agentGroups[i].getAgents();
+        
+        for(int j = 0; j < a.size(); j++) {
+            agentList.push_back(&a[j]);
+        }
     }
-    
 }
