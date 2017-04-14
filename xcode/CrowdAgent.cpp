@@ -99,6 +99,11 @@ vec2 CrowdAgent::forceToAcceleration(vec2 f) {
     return VectorUtils::VectorUtils::ScalarMult(f, 1/mass);
 }
 
+// Updates Neighbors
+void CrowdAgent::updateNeighbors(std::vector<CrowdAgent *> * agentList){
+    int i = 0;
+}
+
 // Force Solvers
 
 

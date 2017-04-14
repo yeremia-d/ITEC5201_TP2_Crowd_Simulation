@@ -72,7 +72,7 @@ public:
     void draw();
     
     // Updates Neighbors
-    void updateNeighbors();
+    void updateNeighbors(std::vector<CrowdAgent *> * agentList);
     
 private:
     // Solves all forces (repulsive and attractive)

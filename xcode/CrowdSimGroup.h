@@ -22,16 +22,24 @@ private:
     int groupId;
     int size;
     ci::Color agentColor;
+    
     std::vector<CrowdAgent> agents;
+    
+    std::vector<CrowdAgent*> * agentList;
     
     
 public:
     
     AgentGroup(int groupId, ci::Color agentColor);
     
+    void setAgentList(std::vector<CrowdAgent *> * agentList);
+    
+    
     void addAgent(CrowdAgent agent);
     
-    std::vector<CrowdAgent> getAgents();
+    int getSize();
+    
+    std::vector<CrowdAgent> * getAgents();
     
     void update();
     

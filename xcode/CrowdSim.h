@@ -21,7 +21,7 @@ class CrowdSim {
 private:
     static int              groupId_ITERATOR;    // Group ID Iterator
     std::vector<AgentGroup> agentGroups;         // List of agent groups
-    CrowdAgent * agentList[];
+    std::vector<CrowdAgent *> agentList;
 
 //** Member Functions **//
 

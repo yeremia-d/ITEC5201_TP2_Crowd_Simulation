@@ -35,6 +35,8 @@ void CrowdSim::initBidirectionalSim() {
     // Build Agent List
     buildAgentList();
     
+    agentGroups[0].setAgentList(&agentList);
+    
 }
 
 // Update all groups
@@ -52,5 +54,11 @@ void CrowdSim::draw() {
 }
 
 void CrowdSim::buildAgentList(){
+    
+    std::vector<CrowdAgent> a = * agentGroups[0].getAgents();
+    
+    for(int i = 0; i < a.size(); i++) {
+        agentList.push_back(&a[i]);
+    }
     
 }
