@@ -575,7 +575,7 @@ namespace RVO {
 		 */
 		void setTimeStep(float timeStep);
 
-	private:
+	protected:
 		std::vector<Agent *> agents_;
 		Agent *defaultAgent_;
 		float globalTime_;
@@ -586,6 +586,8 @@ namespace RVO {
 		friend class Agent;
 		friend class KdTree;
 		friend class Obstacle;
+        
+        friend class CrowdSim;
 	};
 }
 

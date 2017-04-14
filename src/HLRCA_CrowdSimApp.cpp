@@ -17,36 +17,13 @@ class HLRCA_CrowdSimApp : public App {
 	void update() override;
 	void draw() override;
     
-    CrowdSim sim;
-    
-    // Test
-    //CrowdAgent a;
+    CrowdSim* sim = new CrowdSim();
     
 };
 
-void HLRCA_CrowdSimApp::setup()
-{
-    // Test
-    sim.initBidirectionalSim();
-}
+void HLRCA_CrowdSimApp::setup()                         { sim->initBidirectionalSim(); }                // Initialize Simulation
+void HLRCA_CrowdSimApp::mouseDown( MouseEvent event )   {}
+void HLRCA_CrowdSimApp::update()                        { sim->update(); }                              // Update Simulation
+void HLRCA_CrowdSimApp::draw()                          { gl::clear( Color( 0, 0, 0 ) ); sim->draw(); } // Draw Agents
 
-void HLRCA_CrowdSimApp::mouseDown( MouseEvent event )
-{
-}
-
-void HLRCA_CrowdSimApp::update()
-{
-    sim.update();
-}
-
-void HLRCA_CrowdSimApp::draw()
-{
-	gl::clear( Color( 0, 0, 0 ) );
-    
-    //Test
-    sim.draw();
-}
-
-CINDER_APP( HLRCA_CrowdSimApp, RendererGl, [&]( App::Settings *settings ) {
-    settings->setWindowSize( 1280, 720 );
-})
+CINDER_APP( HLRCA_CrowdSimApp, RendererGl, [&]( App::Settings *settings ) { settings->setWindowSize( 1280, 720 );})

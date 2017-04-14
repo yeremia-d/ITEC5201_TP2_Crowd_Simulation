@@ -17,6 +17,7 @@ class CrowdSim : public RVO::RVOSimulator {
 
 public:
     void initBidirectionalSim();    // Initializes a bidirectional flow crowd simulation
+    size_t addAgent(const RVO::Vector2 &originalPosition, const RVO::Vector2 &destinationPosition);
     void update();                  // Updates the Simulation (simulation and integration stage)
     void draw();                    // Draw agents in the simulation
 };

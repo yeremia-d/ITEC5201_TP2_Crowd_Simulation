@@ -41,12 +41,13 @@
 #include "Definitions.h"
 #include "RVOSimulator.h"
 
+
 namespace RVO {
 	/**
 	 * \brief      Defines an agent in the simulation.
 	 */
 	class Agent {
-    protected:
+    public:
 		/**
 		 * \brief      Constructs an agent instance.
 		 * \param      sim             The simulator instance.
@@ -85,7 +86,8 @@ namespace RVO {
 		 *             velocity of this agent.
 		 */
 		void update();
-
+        
+    public:
 		std::vector<std::pair<float, const Agent *> > agentNeighbors_;
 		size_t maxNeighbors_;
 		float maxSpeed_;
@@ -105,7 +107,9 @@ namespace RVO {
 
 		friend class KdTree;
 		friend class RVOSimulator;
+        friend class CrowdSim;
         friend class CrowdAgent;
+
 	};
 
 	/**

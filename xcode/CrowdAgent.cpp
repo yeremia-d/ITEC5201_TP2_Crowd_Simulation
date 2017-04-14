@@ -11,12 +11,9 @@
 
 using namespace ci;
 
-CrowdAgent::CrowdAgent(RVOSimulator *sim, Vector2 originalPosition, Vector2 DestinationPosition) : RVO::Agent(sim) {
+CrowdAgent::CrowdAgent(RVOSimulator *sim) : RVO::Agent(sim) {
     this->CA_Mass                   = 1.0f;
     this->CA_Color                  = Color(1,1,1);
-    this->position_                 = originalPosition;
-    this->CA_OriginalPosition       = originalPosition;
-    this->CA_DestinationPosition    = DestinationPosition;
 }
 
 void CrowdAgent::setColor(Color color) { this->CA_Color = color;} // Sets Agent Color
@@ -31,13 +28,6 @@ void CrowdAgent::update() {
     // Integration
     
 }
-
-// Agent Draw Function
-void CrowdAgent::draw() {
-    gl::color(CA_Color);
-    gl::drawSolidCircle(vec2(position_.x(), position_.y()), radius_);
-}
-
 
 
 

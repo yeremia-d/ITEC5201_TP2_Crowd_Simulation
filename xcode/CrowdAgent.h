@@ -17,13 +17,16 @@
 #include "VectorUtils.h"
 
 #include "Agent.h"
+#include "RVOSimulator.h"
+#include "CrowdSim.h"
+
 
 using namespace ci;
 using namespace RVO;
 
 class CrowdAgent : public Agent {
     
-private:
+public:
     
     Vector2 CA_Acceleration;        // Acceleration
     Vector2 CA_OriginalPosition;    // Starting position
@@ -34,10 +37,8 @@ private:
     
     Color CA_Color;                 // Agent Color
     
-    
-    
-public:
-    CrowdAgent(RVO::RVOSimulator * sim, Vector2 originalPosition, Vector2 DestinationPosition);
+
+    CrowdAgent(RVOSimulator * sim);
     
     // Setters
     void setColor(Color color);
@@ -51,11 +52,7 @@ public:
     // Perform integration (acc->vel->pos)
     void update();
     
-    // Draw Agent
-    void draw();
 
-    
-private:
     // Solves all forces (repulsive and attractive)
     Vector2 solvePushingForce();
     Vector2 solveFrictiongForce();
