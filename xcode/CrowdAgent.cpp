@@ -22,9 +22,9 @@ void CrowdAgent::update() {
     // get neighbors
     
     
-    
+    velocity_ += prefVelocity_ + newVelocity_;
     // Solve forces
-    
+    position_ += velocity_ * 0.005;
     // Integration
     
 }

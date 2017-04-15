@@ -8,15 +8,43 @@
 
 #include "CrowdSim.h"
 #include "CrowdAgent.h"
+#include "KdTree.h"
+
 void CrowdSim::initBidirectionalSim() {
-    setAgentDefaults(15.0f, 10, 10.0f, 5.0f, 5.0f, 2.0f);
     
-    addAgent(RVO::Vector2(50,50), RVO::Vector2(0,0));
+    setAgentDefaults(150.0f, 10, 10.0f, 5.0f, 5.0f, 2.0f);
+    
+    for(int i = 50; i < 300; i +=25)
+        for(int j = 100; j < 600; j +=25) {
+            size_t id = addAgent(RVO::Vector2(i,j), RVO::Vector2(0,0));
+            setAgentPrefVelocity(id, Vector2(rand() % 10 + 1, rand() % 1));
+        }
+    
+
 }
 
-// Update all groups
+// Update Agents positions
 void CrowdSim::update() {
-
+    
+    kdTree_->buildAgentTree();
+    
+#ifdef _OPENMP
+#pragma omp parallel for
+#endif
+    for (int i = 0; i < static_cast<int>(agents_.size()); ++i) {
+        agents_[i]->computeNeighbors();
+        agents_[i]->computeNewVelocity();
+    }
+    
+#ifdef _OPENMP
+#pragma omp parallel for
+#endif
+    for (int i = 0; i < static_cast<int>(agents_.size()); ++i) {
+        static_cast<CrowdAgent *>(agents_[i])->update();
+    }
+    
+    globalTime_ += timeStep_;
+    
 }
 
 // Draws the agents in the groups
@@ -30,7 +58,6 @@ void CrowdSim::draw() {
         gl::drawSolidCircle(vec2(v.x(), v.y()), r);
         
     }
-    
 }
 
 size_t CrowdSim::addAgent(const Vector2 &originalPosition, const Vector2 &destinationPosition)

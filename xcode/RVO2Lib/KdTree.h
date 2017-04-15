@@ -46,7 +46,7 @@ namespace RVO {
 	 *             simulation.
 	 */
 	class KdTree {
-	private:
+	public:
 		/**
 		 * \brief      Defines an agent <i>k</i>d-tree node.
 		 */
@@ -197,6 +197,7 @@ namespace RVO {
 
 		friend class Agent;
 		friend class RVOSimulator;
+        friend class CrowdSim;
 	};
 }
 
