@@ -19,13 +19,18 @@ CrowdAgent::CrowdAgent(RVOSimulator *sim) : RVO::Agent(sim) {
 void CrowdAgent::setColor(Color color) { this->CA_Color = color;} // Sets Agent Color
 
 void CrowdAgent::update() {
-    // get neighbors
     
     
-    velocity_ += prefVelocity_ + newVelocity_;
     // Solve forces
-    position_ += velocity_ * 0.005;
+    
+    
+    Vector2 forces = Vector2(0,0);
+    
     // Integration
+    CA_Acceleration = forceToAcceleration(forces);
+    
+    velocity_ = 0.25*prefVelocity_ + 10 * newVelocity_;
+    position_ += velocity_ * (1 / ci::app::getFrameRate());
     
 }
 
