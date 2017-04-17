@@ -11,11 +11,20 @@
 
 #include <stdio.h>
 #include "CrowdAgent.h"
+#include "RVO.h"
 
 namespace RVOConn {
     class RVOConnector {
     public:
-        static std::vector<CrowdAgent> getRVO(std::vector<CrowdAgent> agents); // Takes in all agents in the system and returns their specific RVO
+        RVO::RVOSimulator * sim;
+        std::vector<CrowdAgent> * agents;
+        
+        RVOConnector(); // Default Constructor
+        RVOConnector(std::vector<CrowdAgent> * agents);
+        void updateRVO(); // Updates RVO Velocities (including Long Range) of all agents in list
+        std::vector<vec3> RVOCalc(float r);   // Calculates the RVO for agents at a specific i level (spec by radius r) and returns a vec3 [x, y, uid]
+        void updateRVOVelocities(std::vector<vec3> * v_rvo); // Updates the RVO velocities in agent lists with velocities in parameter
+        
     };
 }
 

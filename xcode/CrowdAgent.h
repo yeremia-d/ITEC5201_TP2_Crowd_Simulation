@@ -41,6 +41,9 @@ private:
     float radius;       // Agent Circle Radius
     
     Color color;        // Agent Color
+    
+    size_t id;          // Agent ID
+    
 public:
     // Constructors
     CrowdAgent();                                   // Default
@@ -49,6 +52,7 @@ public:
     // Setters
     void setColor(Color color);
     void setRVO(vec2 v);
+    void setId(size_t id);
     
     // Getters
     vec2 getPos();

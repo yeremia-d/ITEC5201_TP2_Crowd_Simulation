@@ -9,16 +9,34 @@
 #include "CrowdSim.h"
 #include "CrowdAgent.h"
 
+CrowdSim::CrowdSim() {
+}
 
 void CrowdSim::initBidirectionalSim() {
+    
     for(int i = 50; i < 300; i +=25)
         for(int j = 100; j < 600; j +=25) {
-            agents.push_back(CrowdAgent(vec2(i,j), vec2(i+100, j+100)));
+            // Create New CrowdAgent
+            CrowdAgent a = CrowdAgent(vec2(i,j), vec2(i+100, j+100));
+            
+            // Sets UID for crowd Agent
+            a.setId(agents.size());
+            
+            // Adds new Crowd Agent to agents list
+            agents.push_back(a);
         }
+    
+    // Initialize RVO Adaptor
+    RVO2Adaptor = RVOConn::RVOConnector(&agents);
+    
 }
 
 // Update Agents positions
 void CrowdSim::update() {
+    
+    // Update RVO Velocities of the Agents
+    RVO2Adaptor.updateRVO();
+    
 }
 
 // Draws the agents in the groups
@@ -36,28 +54,4 @@ void CrowdSim::draw() {
 
 
 
-/*
-size_t CrowdSim::addAgent(const Vector2 &originalPosition, const Vector2 &destinationPosition)
-{
-    if (defaultAgent_ == NULL) { return RVO_ERROR; }
-    
-    CrowdAgent *agent = new CrowdAgent(dynamic_cast<RVOSimulator *>(this));
-    
-    agent->position_                = originalPosition;
-    agent->CA_OriginalPosition      = originalPosition;
-    agent->CA_DestinationPosition   = destinationPosition;
-    agent->maxNeighbors_            = defaultAgent_->maxNeighbors_;
-    agent->maxSpeed_                = defaultAgent_->maxSpeed_;
-    agent->neighborDist_            = defaultAgent_->neighborDist_;
-    agent->radius_                  = defaultAgent_->radius_;
-    agent->timeHorizon_             = defaultAgent_->timeHorizon_;
-    agent->timeHorizonObst_         = defaultAgent_->timeHorizonObst_;
-    agent->velocity_                = defaultAgent_->velocity_;
-    
-    agent->id_                      = agents_.size();
-    
-    agents_.push_back(agent);
-    
-    return agents_.size() - 1;
-}
- */
+

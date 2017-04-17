@@ -22,6 +22,7 @@ CrowdAgent::CrowdAgent() {
     this->mass          = 1.0f;
     this->color         = Color(1,1,1);
     this->radius        = 5.0f;
+    this->id            = 0;
 }
 
 // Crowd Agent Constructor
@@ -34,11 +35,13 @@ CrowdAgent::CrowdAgent(vec2 position_o, vec2 position_t) : CrowdAgent::CrowdAgen
 // Sets Agent Color
 void CrowdAgent::setColor(Color color)  { this->color = color; }
 void CrowdAgent::setRVO(vec2 v)         { this->vel_RVO = v; }
+void CrowdAgent::setId(size_t id)       { this->id = id; }
 
 // Getters
 vec2    CrowdAgent::getPos()            { return position_c; }
 float   CrowdAgent::getRadius()         { return radius; }
 Color   CrowdAgent::getColor()          { return color; }
+vec2    CrowdAgent::getCurrentVelocity(){ return vel_current; }
 
 // Crowd Agent Update Loop
 void CrowdAgent::update() {
