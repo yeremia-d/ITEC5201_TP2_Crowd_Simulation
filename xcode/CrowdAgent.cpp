@@ -24,12 +24,12 @@ void CrowdAgent::update() {
     // Solve forces
     
     
-    Vector2 forces = Vector2(0,0);
+    Vector2 forces = solveForces();
     
     // Integration
     CA_Acceleration = forceToAcceleration(forces);
     
-    velocity_ = 0.25*prefVelocity_ + 10 * newVelocity_;
+    velocity_ = 0.25*CA_Acceleration + 10 * newVelocity_;
     position_ += velocity_ * (1 / ci::app::getFrameRate());
     
 }
@@ -44,6 +44,7 @@ Vector2 CrowdAgent::forceToAcceleration(Vector2 f) { return f/CA_Mass; }
 // Force Solvers
 Vector2 CrowdAgent::solveForces() {
     // Driving Force to Destination
+    Vector2 f_destination = normalize(CA_DestinationPosition - position_);
     
     // calc collision
     
@@ -63,7 +64,7 @@ Vector2 CrowdAgent::solveForces() {
     // calc social forces
     
     // Sum forces
-    Vector2 f_sum = Vector2();
+    Vector2 f_sum = f_destination;
     
     // Return the summed forces to be integrated
     return f_sum;
