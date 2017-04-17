@@ -14,9 +14,13 @@ namespace RVOConn {
     // Default constructor
     RVOConnector::RVOConnector() {
         
+        // Initialize RVO Sim
         sim = new RVO::RVOSimulator();
         
+        // Specify sim timestep
         sim->setTimeStep(0.25f);
+        
+        // Specify Sim default agent parameters
         sim->setAgentDefaults(15.0f, 10, 10.0f, 5.0f, 2.0f, 2.0f);
         
     }
@@ -24,22 +28,26 @@ namespace RVOConn {
     // Constructor that integrates agent list in system with RVO2 lib system
     RVOConnector::RVOConnector(std::vector<CrowdAgent> * agents) : RVOConnector::RVOConnector() {
         
+        // Set agent list reference in RVO connector to agent list referred in param.
         this->agents = agents;
         
+        // Initialize RVO sim with agents in current system
         for(int i = 0; i < agents->size(); i++) {
             
-            CrowdAgent  a       = agents->at(i);            // Gets the agent at i
-            vec2        a_pos   = a.getPos();               // Current position of a
-            vec2        a_vel   = a.getCurrentVelocity();   // Current Velocity of a
+            // Current position of agent
+            vec2 pos   = (*agents)[i].getPos();
+            
+            // Current Velocity of agent
+            vec2 vel   = (*agents)[i].getCurrentVelocity();
             
             // Adds the agent to the RVO sim
-            sim->addAgent(RVO::Vector2(a_pos.x, a_pos.y));
+            sim->addAgent(RVO::Vector2(pos.x, pos.y));
             
             // Updates the radius of the agent
-            sim->setAgentRadius(i, a.getRadius());
+            sim->setAgentRadius(i, (*agents)[i].getRadius());
             
             // Updates the velocity of the agent
-            sim->setAgentVelocity(i, RVO::Vector2(a_vel.x, a_vel.y));
+            sim->setAgentVelocity(i, RVO::Vector2(vel.x, vel.y));
         }
     }
     
@@ -64,14 +72,23 @@ namespace RVOConn {
         //Synchronize Values in RVO system with host system
         for(int i = 0; i < agents->size(); i++) {
             
-            CrowdAgent a = agents->at(i);           // gets the crowd agent at i
-            vec2 vel = a.getCurrentVelocity();      // Gets the current velocity
-            vec2 pos = a.getPos();                  // gets the current position
-            float r = a.getRadius();                // gets the radius of the agent
+            // Gets the current velocity
+            vec2 vel = (*agents)[i].getCurrentVelocity();
             
-            sim->setAgentPosition(i, RVO::Vector2(pos.x, pos.y));   // Sets the agent's position
-            sim->setAgentVelocity(i, RVO::Vector2(vel.x, vel.y));   // Sets the agent's velocity
-            sim->setAgentRadius(i, r);                              // Sets the agent's radius
+            // gets the current agent position
+            vec2 pos = (*agents)[i].getPos();
+            
+            // gets the radius of the agent
+            float r  = (*agents)[i].getRadius();
+            
+            // Sets the agent's position
+            sim->setAgentPosition(i, RVO::Vector2(pos.x, pos.y));
+            
+            // Sets the agent's velocity
+            sim->setAgentVelocity(i, RVO::Vector2(vel.x, vel.y));
+            
+            // Sets the agent's radius
+            sim->setAgentRadius(i, r);
         }
         
         // Performs a step in the sim with updated/synced values
@@ -83,8 +100,10 @@ namespace RVOConn {
         // Generate return vector list
         for(int i = 0; i < sim->getNumAgents(); i++) {
             
+            // Gets the RVO agent's velocity
             RVO::Vector2 v = sim->getAgentVelocity(i);
             
+            // Pushes the velocity vector into RVO_Vel
             RVO_Vel.push_back( vec3(v.x(), v.y(), i) );
         }
         
@@ -94,13 +113,15 @@ namespace RVOConn {
     
     // Updates the RVO Velocities
     void RVOConnector::updateRVOVelocities(std::vector<vec3> * v_rvo){
+        
+        // Iterate through the v_rvo vectorList
         for(int i = 0; i < agents->size(); i++) {
-            vec3 v = v_rvo->at(i);
-            // Need to modify a value that has been refernced using a pointer
-            (*agents)[i].setRVO(vec2(v.x, v.y));
             
+            // get velocity vector at 'i'
+            vec3 v = v_rvo->at(i);
+            
+            // update the RVO velocity in agent i with v_rvo
+            (*agents)[i].setRVO(vec2(v.x, v.y));
         }
     }
-    
-    
 }
