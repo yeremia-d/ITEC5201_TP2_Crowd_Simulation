@@ -16,14 +16,23 @@
 namespace RVOConn {
     class RVOConnector {
     public:
-        RVO::RVOSimulator * sim;
-        std::vector<CrowdAgent> * agents;
+        RVO::RVOSimulator * sim;            // Referenced variable to RVO simulator
+        std::vector<CrowdAgent> * agents;   // Referenced variable to list of agents
         
-        RVOConnector(); // Default Constructor
+        // Default Constructor
+        RVOConnector();
+        
+        // Constructor that connects the agent list to this adaptor
         RVOConnector(std::vector<CrowdAgent> * agents);
-        void updateRVO(); // Updates RVO Velocities (including Long Range) of all agents in list
-        std::vector<vec3> RVOCalc(float r);   // Calculates the RVO for agents at a specific i level (spec by radius r) and returns a vec3 [x, y, uid]
-        void updateRVOVelocities(std::vector<vec3> * v_rvo); // Updates the RVO velocities in agent lists with velocities in parameter
+        
+        // Updates RVO Velocities (including Long Range) of all agents in list
+        void updateRVO();
+        
+        // Calculates the RVO for agents at a specific i level (spec by radius r) and returns a vec3 [x, y, uid]
+        std::vector<vec3> RVOCalc(float r);
+        
+        // Updates the RVO velocities in agent lists with velocities in parameter
+        void updateRVOVelocities(std::vector<vec3> * v_rvo);
         
     };
 }
