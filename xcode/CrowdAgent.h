@@ -45,6 +45,7 @@ private:
     size_t id;          // Agent ID
     
 public:
+    
     // Constructors
     CrowdAgent();                                   // Default
     CrowdAgent(vec2 position_o, vec2 position_t);   // With defined start and target positions
@@ -72,7 +73,9 @@ public:
     vec2 solvePushingForce();
     vec2 solveFrictiongForce();
     vec2 solveSocialForce();
-    vec2 solveTargetForce();    // Returns normalized vector towards the agent's target
+    
+    // Returns normalized vector towards the agent's target
+    vec2 solveTargetForce();
     
     // Converts a Force to Acceleration based on agent's mass
     vec2 forceToAcceleration(vec2 f);

@@ -18,13 +18,20 @@ class CrowdSim {
 
 public:
     
-    std::vector<CrowdAgent> agents; // List of Agents in the system
-    RVOConn::RVOConnector RVO2Adaptor; // RVO System Adaptor
+    std::vector<CrowdAgent> agents;         // List of Agents in the system
+    RVOConn::RVOConnector RVO2Adaptor;      // RVO System Adaptor
     
-    CrowdSim();                     // Explicit Crowd Sim Constructor
-    void initBidirectionalSim();    // Initializes a bidirectional flow crowd simulation
-    void update();                  // Updates the Simulation (simulation and integration stage)
-    void draw();                    // Draw agents in the simulation
+    // Explicit Crowd Sim Constructor
+    CrowdSim();
+    
+    // Initializes a bidirectional flow crowd simulation
+    void initBidirectionalSim();
+    
+    // Updates the Simulation (simulation and integration stage)
+    void update();
+    
+    // Draw agents in the simulation
+    void draw();
 };
 
 #endif /* CrowdSim_hpp */
