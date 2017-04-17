@@ -16,57 +16,65 @@
 
 #include "VectorUtils.h"
 
-#include "Agent.h"
-#include "RVOSimulator.h"
-#include "CrowdSim.h"
-
-
 using namespace ci;
-using namespace RVO;
 
-class CrowdAgent : public Agent {
+// Declaring Constants
+const int TARGETFORCE = 0; // Weighting Function
+
+class CrowdAgent {
     
+private:
+    
+    // Class Members
+    vec2  acc;          // Acceleration
+    float acc_max;      // Maximum Acceleration
+    
+    vec2 vel_pref;      // Preferred Velocity
+    vec2 vel_current;   // Current Velocity
+    vec2 vel_RVO;       // RVO velocity that is solved in the sim
+    
+    vec2 position_o;    // Starting position
+    vec2 position_t;    // Agent Destination (Target)
+    vec2 position_c;    // Current Position
+    
+    float mass;         // Agent Mass
+    float radius;       // Agent Circle Radius
+    
+    Color color;        // Agent Color
 public:
-    
-    Vector2 CA_Acceleration;        // Acceleration
-    Vector2 CA_OriginalPosition;    // Starting position
-    Vector2 CA_DestinationPosition; // Agent Destination
-    
-    float CA_Mass;                  // Agent Mass
-    float CA_MaxAcceleration;       // Maximum Acceleration
-    
-    Color CA_Color;                 // Agent Color
-    
-
-    CrowdAgent(RVOSimulator * sim);
+    // Constructors
+    CrowdAgent();                                   // Default
+    CrowdAgent(vec2 position_o, vec2 position_t);   // With defined start and target positions
     
     // Setters
     void setColor(Color color);
+    void setRVO(vec2 v);
     
     // Getters
-    Vector2 getPos();
-    Vector2 getCurrentVelocity();
-    Vector2 getPreferredVelocity();
-    Vector2 getAcc();
+    vec2 getPos();
+    float getRadius();
+    Color getColor();
+    vec2 getCurrentVelocity();
+    vec2 getPreferredVelocity();
+    vec2 getAcc();
     
     // Perform integration (acc->vel->pos)
     void update();
     
 
     // Solves all forces (repulsive and attractive)
-    Vector2 solvePushingForce();
-    Vector2 solveFrictiongForce();
-    Vector2 solveSocialForce();
-    Vector2 solveLRLCAForce();
+    vec2 solveForces();
     
-    Vector2 solveTargetForce();    // Returns normalized vector towards the agent's target
-    
-    Vector2 solveForces();
+    vec2 solvePushingForce();
+    vec2 solveFrictiongForce();
+    vec2 solveSocialForce();
+    vec2 solveTargetForce();    // Returns normalized vector towards the agent's target
     
     // Converts a Force to Acceleration based on agent's mass
-    Vector2 forceToAcceleration(Vector2 f);
+    vec2 forceToAcceleration(vec2 f);
     
-    
+    // Weighting Functions
+    float weighting(int weightFunction);
 };
 
 #endif /* CrowdAgent_hpp */

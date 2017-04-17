@@ -11,13 +11,14 @@
 
 #include <stdio.h>
 #include <vector>
-#include "RVO.h"
+#include "CrowdAgent.h"
 
-class CrowdSim : public RVO::RVOSimulator {
+class CrowdSim {
 
 public:
+    std::vector<CrowdAgent> agents;
+    
     void initBidirectionalSim();    // Initializes a bidirectional flow crowd simulation
-    size_t addAgent(const RVO::Vector2 &originalPosition, const RVO::Vector2 &destinationPosition);
     void update();                  // Updates the Simulation (simulation and integration stage)
     void draw();                    // Draw agents in the simulation
 };

@@ -15,7 +15,7 @@
 namespace RVOConn {
     class RVOConnector {
     public:
-        static std::vector<CrowdAgent> getRVO(std::vector<CrowdAgent> agents);
+        static std::vector<CrowdAgent> getRVO(std::vector<CrowdAgent> agents); // Takes in all agents in the system and returns their specific RVO
     };
 }
 

@@ -7,68 +7,98 @@
 //
 
 #include "CrowdAgent.h"
-#include "RVO.h"
+#include "VectorUtils.h"
 
 using namespace ci;
 
-CrowdAgent::CrowdAgent(RVOSimulator *sim) : RVO::Agent(sim) {
-    this->CA_Mass                   = 1.0f;
-    this->CA_Color                  = Color(1,1,1);
+// Crowd Agent Default Constructor
+CrowdAgent::CrowdAgent() {
+    this->acc           = vec2();
+    this->acc_max       = 1.0f;
+    this->vel_pref      = vec2();
+    this->vel_current   = vec2();
+    this->position_o    = vec2();
+    this->position_t    = vec2();
+    this->mass          = 1.0f;
+    this->color         = Color(1,1,1);
+    this->radius        = 5.0f;
 }
 
-void CrowdAgent::setColor(Color color) { this->CA_Color = color;} // Sets Agent Color
+// Crowd Agent Constructor
+CrowdAgent::CrowdAgent(vec2 position_o, vec2 position_t) : CrowdAgent::CrowdAgent() {
+    this->position_o = position_o;
+    this->position_t = position_t;
+    this->position_c = position_o;
+}
 
+// Sets Agent Color
+void CrowdAgent::setColor(Color color)  { this->color = color; }
+void CrowdAgent::setRVO(vec2 v)         { this->vel_RVO = v; }
+
+// Getters
+vec2    CrowdAgent::getPos()            { return position_c; }
+float   CrowdAgent::getRadius()         { return radius; }
+Color   CrowdAgent::getColor()          { return color; }
+
+// Crowd Agent Update Loop
 void CrowdAgent::update() {
     
-    
     // Solve forces
-    
-    
-    Vector2 forces = solveForces();
+    vec2 forces = solveForces();
     
     // Integration
-    CA_Acceleration = forceToAcceleration(forces);
-    
-    velocity_ = 0.25*CA_Acceleration + 10 * newVelocity_;
-    position_ += velocity_ * (1 / ci::app::getFrameRate());
-    
+    acc         += forceToAcceleration(forces);
+    vel_current  = vel_RVO + acc;
+    position_c  += vel_current * (1 / ci::app::getFrameRate());
 }
 
 // Computes the acceleration of an agent based on the applied forces and mass
-Vector2 CrowdAgent::forceToAcceleration(Vector2 f) { return f/CA_Mass; }
-
+vec2 CrowdAgent::forceToAcceleration(vec2 f) {
+    return VectorUtils::VectorUtils::ScalarMult(f, 1/mass);
+}
 
 // Force Solvers
-Vector2 CrowdAgent::solveForces() {
+vec2 CrowdAgent::solveForces() {
     // Driving Force to Destination
-    Vector2 f_destination = normalize(CA_DestinationPosition - position_);
+    vec2 f_destination = solveTargetForce();
     
     // calc collision
-    Vector2 f_c;
+    vec2 f_c;
     
     // if collision occurs
     // conservation of momentum
-    Vector2 f_m;
+    vec2 f_m;
     
     // calc pushing force
-    Vector2 f_p;
+    vec2 f_p;
     
     // calc friction force
-    Vector2 f_f;
+    vec2 f_f;
     
     // calc social forces
     
     
     // Sum forces
-    Vector2 f_sum = f_destination;
+    vec2 f_sum = f_destination;
     
     // Return the summed forces to be integrated
     return f_sum;
 }
 
-Vector2 CrowdAgent::solveTargetForce() {
-    Vector2 targetForce = Vector2();
+// Solves for force that drives agent to target (normalized)
+vec2 CrowdAgent::solveTargetForce() {
+    vec2 f_t = VectorUtils::VectorUtils::Subtract(position_t, position_c);
+    return VectorUtils::VectorUtils::NormalizeVector(f_t);;
+}
+
+float CrowdAgent::weighting(int weightFunction) {
     
-    return targetForce;
+    switch(weightFunction) {
+        case TARGETFORCE:
+            return 1;
+            break;
+        default: return 1;
+            break;
+    }
 }
 
