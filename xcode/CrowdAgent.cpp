@@ -34,9 +34,6 @@ void CrowdAgent::update() {
     
 }
 
-
-
-
 // Computes the acceleration of an agent based on the applied forces and mass
 Vector2 CrowdAgent::forceToAcceleration(Vector2 f) { return f/CA_Mass; }
 
@@ -47,21 +44,20 @@ Vector2 CrowdAgent::solveForces() {
     Vector2 f_destination = normalize(CA_DestinationPosition - position_);
     
     // calc collision
+    Vector2 f_c;
     
     // if collision occurs
     // conservation of momentum
-    
-    // recalculate new path based on density grid
-    
-    // perform RVO Long-Range LCA
-    
-    // perform RVO LCA
+    Vector2 f_m;
     
     // calc pushing force
+    Vector2 f_p;
     
     // calc friction force
+    Vector2 f_f;
     
     // calc social forces
+    
     
     // Sum forces
     Vector2 f_sum = f_destination;
@@ -75,6 +71,4 @@ Vector2 CrowdAgent::solveTargetForce() {
     
     return targetForce;
 }
-
-
 

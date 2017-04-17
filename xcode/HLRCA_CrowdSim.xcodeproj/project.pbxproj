@@ -25,6 +25,7 @@
 		0EB44AE41E9ED3A1007B3A91 /* Obstacle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EB44ADC1E9ED3A1007B3A91 /* Obstacle.cpp */; };
 		0EB44AE51E9ED3A1007B3A91 /* RVOSimulator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EB44ADF1E9ED3A1007B3A91 /* RVOSimulator.cpp */; };
 		0EB44AE71E9ED4C2007B3A91 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 0EB44AE61E9ED4C2007B3A91 /* README */; };
+		0EC868771EA53058002E1569 /* RVOConnector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EC868751EA53058002E1569 /* RVOConnector.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		96E96405C9804A2180FE2177 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3CEF4C6650E64D57A68F93D2 /* CinderApp.icns */; };
@@ -61,6 +62,8 @@
 		0EB44AE01E9ED3A1007B3A91 /* RVOSimulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RVOSimulator.h; path = RVO2Lib/RVOSimulator.h; sourceTree = "<group>"; };
 		0EB44AE11E9ED3A1007B3A91 /* Vector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vector2.h; path = RVO2Lib/Vector2.h; sourceTree = "<group>"; };
 		0EB44AE61E9ED4C2007B3A91 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README; path = RVO2Lib/README; sourceTree = "<group>"; };
+		0EC868751EA53058002E1569 /* RVOConnector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RVOConnector.cpp; sourceTree = "<group>"; };
+		0EC868761EA53058002E1569 /* RVOConnector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RVOConnector.hpp; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -120,6 +123,8 @@
 				0EB44AC61E970E09007B3A91 /* CrowdSim.h */,
 				0EB44ACB1E972326007B3A91 /* CrowdAgent.cpp */,
 				0EB44ACC1E972326007B3A91 /* CrowdAgent.h */,
+				0EC868751EA53058002E1569 /* RVOConnector.cpp */,
+				0EC868761EA53058002E1569 /* RVOConnector.hpp */,
 			);
 			name = CrowdSim;
 			sourceTree = "<group>";
@@ -303,6 +308,7 @@
 				0EB44AD31E9C8078007B3A91 /* VectorUtils.cpp in Sources */,
 				0EB44AC71E970E09007B3A91 /* CrowdSim.cpp in Sources */,
 				0EB44AE41E9ED3A1007B3A91 /* Obstacle.cpp in Sources */,
+				0EC868771EA53058002E1569 /* RVOConnector.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
