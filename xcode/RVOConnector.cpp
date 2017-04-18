@@ -48,17 +48,20 @@ namespace RVOConn {
             
             // Updates the velocity of the agent
             sim->setAgentVelocity(i, RVO::Vector2(vel.x, vel.y));
+            
+            //Set Agent Preferred velocity
+            sim->setAgentPrefVelocity(i, RVO::Vector2(vel.x, vel.y));
         }
     }
     
     void RVOConnector::updateRVO() {
         
         // Sync Values in RVO sim
-        std::vector<vec3> rvo_base = RVOCalc(5.0f);
+        std::vector<vec3> rvo_base = RVOCalc(8.0f);
         
         // For each level of i lookahead steps, increase radius by n
         
-        //compute RVO's with increased radii
+        // compute RVO's with increased radii
         
         // Sum RVO's based on the level of i
         
@@ -84,8 +87,8 @@ namespace RVOConn {
             // Sets the agent's position
             sim->setAgentPosition(i, RVO::Vector2(pos.x, pos.y));
             
-            // Sets the agent's velocity
-            sim->setAgentVelocity(i, RVO::Vector2(vel.x, vel.y));
+            //Set Agent Preferred velocity
+            sim->setAgentPrefVelocity(i, RVO::Vector2(vel.x, vel.y));
             
             // Sets the agent's radius
             sim->setAgentRadius(i, r);
