@@ -57,14 +57,11 @@ namespace RVOConn {
     
     void RVOConnector::updateRVO() {
         
-        // Sync Values in RVO sim
+        // Calculate RVO Velocities at base level at t_0
         std::vector<vec3> rvo_base = RVOCalc(8.0f);
         
-        // For each level of i lookahead steps, increase radius by n
-        
-        // compute RVO's with increased radii
-        
-        // Sum RVO's based on the level of i
+        // Compute RVO look ahead velocities
+        std::vector<vec3> rvo_lookahead = RVOLookAheadCalc();
         
         // Update agent's RVO
         updateRVOVelocities(&rvo_base);
@@ -115,6 +112,21 @@ namespace RVOConn {
         return RVO_Vel;
     }
     
+    // Calculates RVO velocities for agents in agents with look ahead with max look ahead steps
+    std::vector<vec3> RVOConnector::RVOLookAheadCalc() {
+        // "update" all agent positions based on v_current, generate positions for each time steps to a max of MAX_TIMESTEP
+            // at each timestep, integrate based on velocity to get positions - create a fn that takes in agents, and returns std::vector<vec3> with [x,y,uid]
+        // compute RVO for all (due to library)
+        
+        // Update curtailing factor on all agents based on velocity
+            // update curtailing fn that updates max num of iterations based on current vel of agent
+        
+        // iterate through each time step,
+            // on each iteration, iterate through agents. if i <= iMax for specific agents, then apply RVO with agent radius adjusted for the timestep, if not, continue
+        
+        
+    }
+    
     // Updates the RVO Velocities
     void RVOConnector::updateRVOVelocities(std::vector<vec3> * v_rvo){
         
@@ -128,10 +140,8 @@ namespace RVOConn {
             (*agents)[i].setRVO(vec2(v.x, v.y));
         }
     }
-    
-    void RVOConnector::solveCollisions() {
-        
-    }
 }
+
+
 
 

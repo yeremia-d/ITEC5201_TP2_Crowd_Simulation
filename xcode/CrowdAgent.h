@@ -35,6 +35,8 @@ private:
     
     size_t id;              // Agent ID
     
+    int AgentMaxLookaheadSteps; // Agent max look ahead steps after curtailing
+    
 public:
     
     // Constructors

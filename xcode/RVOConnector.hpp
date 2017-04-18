@@ -28,8 +28,11 @@ namespace RVOConn {
         // Updates RVO Velocities (including Long Range) of all agents in list
         void updateRVO();
         
-        // Calculates the RVO for agents at a specific i level (spec by radius r) and returns a vec3 [x, y, uid]
+        // Calculates the RVO for agents at a specific i level (spec by radius r) and returns a vec3 [x, y, uid]. (Base case formula)
         std::vector<vec3> RVOCalc(float r);
+        
+        // Calculates RVO with Lookahead for agents
+        std::vector<vec3> RVOLookAheadCalc();
         
         // Updates the RVO velocities in agent lists with velocities in parameter
         void updateRVOVelocities(std::vector<vec3> * v_rvo);
