@@ -24,23 +24,25 @@ class CrowdAgent {
 private:
     
     // Class Members
-    vec2  acc;          // Acceleration
-    float acc_max;      // Maximum Acceleration
+    vec2  acc;              // Acceleration
+    float acc_max;          // Maximum Acceleration
     
-    vec2 vel_pref;      // Preferred Velocity
-    vec2 vel_current;   // Current Velocity
-    vec2 vel_RVO;       // RVO velocity that is solved in the sim
+    vec2 vel_pref;          // Preferred Velocity
+    vec2 vel_current;       // Current Velocity
+    vec2 vel_RVO;           // RVO velocity that is solved in the sim
     
-    vec2 position_o;    // Starting position
-    vec2 position_t;    // Agent Destination (Target)
-    vec2 position_c;    // Current Position
+    vec2 force_collision;   // Collision Force when checking for collisions
     
-    float mass;         // Agent Mass
-    float radius;       // Agent Circle Radius
+    vec2 position_o;        // Starting position
+    vec2 position_t;        // Agent Destination (Target)
+    vec2 position_c;        // Current Position
     
-    Color color;        // Agent Color
+    float mass;             // Agent Mass
+    float radius;           // Agent Circle Radius
     
-    size_t id;          // Agent ID
+    Color color;            // Agent Color
+    
+    size_t id;              // Agent ID
     
 public:
     

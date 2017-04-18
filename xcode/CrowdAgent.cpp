@@ -65,7 +65,7 @@ vec2 CrowdAgent::solveForces() {
     vec2 f_destination = solveTargetForce();
     
     // calc collision
-    vec2 f_c;
+    
     
     // if collision occurs
     // conservation of momentum
