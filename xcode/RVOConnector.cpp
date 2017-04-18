@@ -21,7 +21,7 @@ namespace RVOConn {
         sim->setTimeStep(0.25f);
         
         // Specify Sim default agent parameters
-        sim->setAgentDefaults(15.0f, 10, 10.0f, 5.0f, 2.0f, 2.0f);
+        sim->setAgentDefaults(300.0f, 100, 10.0f, 5.0f, 2.0f, 2.0f);
         
     }
     

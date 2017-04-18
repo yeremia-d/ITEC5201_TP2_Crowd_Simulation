@@ -14,8 +14,6 @@
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
 
-#include "VectorUtils.h"
-
 using namespace ci;
 
 // Declaring Constants

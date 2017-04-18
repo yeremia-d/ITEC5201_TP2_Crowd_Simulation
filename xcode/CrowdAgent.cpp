@@ -7,7 +7,6 @@
 //
 
 #include "CrowdAgent.h"
-#include "VectorUtils.h"
 
 using namespace ci;
 
@@ -50,14 +49,14 @@ void CrowdAgent::update() {
     vec2 forces = solveForces();
     
     // Integration
-    acc         += forceToAcceleration(forces);
-    vel_current  = vel_RVO + acc;
-    position_c  += vel_current * (1 / ci::app::getFrameRate());
+    acc           = forceToAcceleration(forces);
+    vel_current   = ((15.0f * vel_RVO) + acc * 0.05f) * 3.0f;
+    position_c   += vel_current * (1 / ci::app::getFrameRate());
 }
 
 // Computes the acceleration of an agent based on the applied forces and mass
 vec2 CrowdAgent::forceToAcceleration(vec2 f) {
-    return VectorUtils::VectorUtils::ScalarMult(f, 1/mass);
+    return f/mass;
 }
 
 // Force Solvers
@@ -75,6 +74,9 @@ vec2 CrowdAgent::solveForces() {
     // calc pushing force
     vec2 f_p;
     
+    // RVO/LR-RVO Velocity (take it in as a velocity)
+    vec2 f_r = vel_RVO;
+    
     // calc friction force
     vec2 f_f;
     
@@ -82,16 +84,16 @@ vec2 CrowdAgent::solveForces() {
     
     
     // Sum forces
-    vec2 f_sum = f_destination;
+    vec2 f_sum = f_destination + f_r;
     
     // Return the summed forces to be integrated
     return f_sum;
 }
 
-// Solves for force that drives agent to target (normalized)
+// Solves for force that drives agent to target
 vec2 CrowdAgent::solveTargetForce() {
-    vec2 f_t = VectorUtils::VectorUtils::Subtract(position_t, position_c);
-    return VectorUtils::VectorUtils::NormalizeVector(f_t);;
+    vec2 f_t = position_t - position_c;
+    return f_t;
 }
 
 float CrowdAgent::weighting(int weightFunction) {

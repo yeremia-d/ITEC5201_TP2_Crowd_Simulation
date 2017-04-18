@@ -7,7 +7,6 @@
 //
 
 #include "CrowdSim.h"
-#include "CrowdAgent.h"
 
 CrowdSim::CrowdSim() {
 }
@@ -17,10 +16,13 @@ void CrowdSim::initBidirectionalSim() {
     for(int i = 50; i < 300; i +=25)
         for(int j = 100; j < 600; j +=25) {
             // Create New CrowdAgent
-            CrowdAgent a = CrowdAgent(vec2(i,j), vec2(i+100, j+100));
+            CrowdAgent a = CrowdAgent(vec2(i,j), vec2(i+(rand() % 500 + 300), j));
             
             // Sets UID for crowd Agent
             a.setId(agents.size());
+            
+            // Initialize Forces
+            a.update();
             
             // Adds new Crowd Agent to agents list
             agents.push_back(a);
@@ -36,6 +38,9 @@ void CrowdSim::update() {
     
     // Update RVO Velocities of the Agents
     RVO2Adaptor.updateRVO();
+    
+    // Update Agents
+    for(int i = 0; i < agents.size(); i++) agents[i].update();
     
 }
 
