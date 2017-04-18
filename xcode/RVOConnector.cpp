@@ -8,6 +8,7 @@
 
 #include "RVOConnector.hpp"
 #include "Vector2.h"
+#include "AGENT_CONST.h"
 
 namespace RVOConn {
     

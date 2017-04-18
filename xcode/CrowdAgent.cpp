@@ -7,20 +7,18 @@
 //
 
 #include "CrowdAgent.h"
+#include "AGENT_CONST.h"
 
 using namespace ci;
 
 // Crowd Agent Default Constructor
 CrowdAgent::CrowdAgent() {
     this->acc           = vec2();
-    this->acc_max       = 1.0f;
     this->vel_pref      = vec2();
     this->vel_current   = vec2();
     this->position_o    = vec2();
     this->position_t    = vec2();
-    this->mass          = 1.0f;
     this->color         = Color(1,1,1);
-    this->radius        = 5.0f;
     this->id            = 0;
 }
 
@@ -38,7 +36,7 @@ void CrowdAgent::setId(size_t id)       { this->id = id; }
 
 // Getters
 vec2    CrowdAgent::getPos()            { return position_c; }
-float   CrowdAgent::getRadius()         { return radius; }
+float   CrowdAgent::getRadius()         { return AGENT_RADIUS; }
 Color   CrowdAgent::getColor()          { return color; }
 vec2    CrowdAgent::getCurrentVelocity(){ return vel_current; }
 
@@ -56,35 +54,22 @@ void CrowdAgent::update() {
 
 // Computes the acceleration of an agent based on the applied forces and mass
 vec2 CrowdAgent::forceToAcceleration(vec2 f) {
-    return f/mass;
+    return f/AgentConst::AGENT_MASS;
 }
 
 // Force Solvers
 vec2 CrowdAgent::solveForces() {
     // Driving Force to Destination
-    vec2 f_destination = solveTargetForce();
-    
-    // calc collision
-    
-    
-    // if collision occurs
-    // conservation of momentum
-    vec2 f_m;
-    
-    // calc pushing force
-    vec2 f_p;
+    vec2 f_d = solveTargetForce();
     
     // RVO/LR-RVO Velocity (take it in as a velocity)
     vec2 f_r = vel_RVO;
     
-    // calc friction force
-    vec2 f_f;
-    
-    // calc social forces
-    
+    // Solve for social forces
+    vec2 f_s = solveSocialForce();
     
     // Sum forces
-    vec2 f_sum = f_destination + f_r;
+    vec2 f_sum = f_d + f_r + f_s;
     
     // Return the summed forces to be integrated
     return f_sum;
@@ -92,14 +77,20 @@ vec2 CrowdAgent::solveForces() {
 
 // Solves for force that drives agent to target
 vec2 CrowdAgent::solveTargetForce() {
-    vec2 f_t = position_t - position_c;
-    return f_t;
+    return position_t - position_c;
+}
+
+vec2 CrowdAgent::solveSocialForce() {
+    vec2 socialForce = vec2();
+    
+    return socialForce;
+
 }
 
 float CrowdAgent::weighting(int weightFunction) {
     
     switch(weightFunction) {
-        case TARGETFORCE:
+        case TARGET_FORCE:
             return 1;
             break;
         default: return 1;

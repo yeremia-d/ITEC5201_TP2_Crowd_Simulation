@@ -16,8 +16,6 @@
 
 using namespace ci;
 
-// Declaring Constants
-const int TARGETFORCE = 0; // Weighting Function
 
 class CrowdAgent {
     
@@ -25,20 +23,13 @@ private:
     
     // Class Members
     vec2  acc;              // Acceleration
-    float acc_max;          // Maximum Acceleration
-    
     vec2 vel_pref;          // Preferred Velocity
     vec2 vel_current;       // Current Velocity
     vec2 vel_RVO;           // RVO velocity that is solved in the sim
-    
     vec2 force_collision;   // Collision Force when checking for collisions
-    
     vec2 position_o;        // Starting position
     vec2 position_t;        // Agent Destination (Target)
     vec2 position_c;        // Current Position
-    
-    float mass;             // Agent Mass
-    float radius;           // Agent Circle Radius
     
     Color color;            // Agent Color
     
@@ -70,8 +61,7 @@ public:
     // Solves all forces (repulsive and attractive)
     vec2 solveForces();
     
-    vec2 solvePushingForce();
-    vec2 solveFrictiongForce();
+    // Solve for social forces
     vec2 solveSocialForce();
     
     // Returns normalized vector towards the agent's target
