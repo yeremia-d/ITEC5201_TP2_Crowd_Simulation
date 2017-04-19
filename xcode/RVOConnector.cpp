@@ -114,35 +114,49 @@ namespace RVOConn {
     
     // Calc RVO based on inputted positions
     std::vector<vec3> RVOConnector::RVOCalc(float r, std::vector<vec3> * pos) {
+        //////////////
+        //////// TODO
+        /////////////
     }
     
     // Calculates RVO velocities for agents in agents with look ahead with max look ahead steps
     std::vector<vec3> RVOConnector::RVOLookAheadCalc() {
         
-        // "update" all agent positions based on v_current, generate positions for each time steps to a max of MAX_TIMESTEP
-            // at each timestep, integrate based on velocity to get positions - create a fn that takes in agents, and returns std::vector<vec3> with [x,y,uid]
-        
-        
+        // Get state of system (extrapolated positions of all agents) from t_0 to t_maxIterations
         for(int i = 0; i < AgentConst::MAX_LOOK_AHEAD_STEPS; i++) {
+            
+            // Declare row that will hold positions of agents at time t_i
             std::vector<vec3> row;
             
+            // Compute new positions for all agents (iterate through agents
             for(int agent_id = 0; agent_id < agents->size(); agent_id++) {
+                
+                // Compute new position
                 vec2 newPosition = (*agents)[agent_id].getPos() + ((float)i * (*agents)[agent_id].getCurrentVelocity() / ci::app::getFrameRate() );
                 
+                // push new position to row
                 row.push_back(vec3(newPosition.x, newPosition.y, agent_id));
             }
             
+            // Add row to list of positions from t_0 to t_maxIterations
             LR_pos.push_back(row);
-                              
         }
-        // compute RVO for all (due to library)
+        
+        // Compute RVO for all (due to the way the library works)
+        for(int i = 0; i < LR_pos.size(); i++) {
+            // Solve RVO velocities based on t_i parameters (positions and radii)
+            std::vector<vec3> LR_rvoList_i = RVOCalc((1/((float)i + 1)) * AgentConst::AGENT_RADIUS, &LR_pos[i]);
+            
+            // Add the computed RVO velocities to LR_vel list
+            LR_vel.push_back(LR_rvoList_i);
+        }
         
         // Update curtailing factor on all agents based on velocity
             // update curtailing fn that updates max num of iterations based on current vel of agent
         
         // iterate through each time step,
             // on each iteration, iterate through agents. if i <= iMax for specific agents, then apply RVO with agent radius adjusted for the timestep, if not, continue
-        
+        //return std::vector<vec3>();
         
     }
     
