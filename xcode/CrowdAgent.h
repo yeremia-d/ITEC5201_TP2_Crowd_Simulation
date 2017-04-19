@@ -22,20 +22,21 @@ class CrowdAgent {
 private:
     
     // Class Members
-    vec2  acc;              // Acceleration
-    vec2 vel_pref;          // Preferred Velocity
-    vec2 vel_current;       // Current Velocity
-    vec2 vel_RVO;           // RVO velocity that is solved in the sim
-    vec2 force_collision;   // Collision Force when checking for collisions
-    vec2 position_o;        // Starting position
-    vec2 position_t;        // Agent Destination (Target)
-    vec2 position_c;        // Current Position
+    vec2 acc;                       // Acceleration
+    vec2 vel_current;               // Current Velocity
+    vec2 vel_RVO;                   // RVO velocity that is solved in the sim
+    vec2 force_collision;           // Collision Force when checking for collisions
+    vec2 position_o;                // Starting position
+    vec2 position_t;                // Agent Destination (Target)
+    vec2 position_c;                // Current Position
     
-    Color color;            // Agent Color
+    Color color;                    // Agent Color
     
-    size_t id;              // Agent ID
+    std::vector<vec2> vel_RVOLR;    // Long Range RVO
     
-    int AgentMaxLookaheadSteps; // Agent max look ahead steps after curtailing
+    size_t id;                      // Agent ID
+    
+    int AgentMaxLookaheadSteps;     // Agent max look ahead steps after curtailing
     
 public:
     
@@ -53,13 +54,11 @@ public:
     float getRadius();
     Color getColor();
     vec2 getCurrentVelocity();
-    vec2 getPreferredVelocity();
     vec2 getAcc();
     
     // Perform integration (acc->vel->pos)
     void update();
     
-
     // Solves all forces (repulsive and attractive)
     vec2 solveForces();
     
@@ -71,6 +70,9 @@ public:
     
     // Converts a Force to Acceleration based on agent's mass
     vec2 forceToAcceleration(vec2 f);
+    
+    // Computes Curtailing Function
+    void updateLRCurtail();
     
     // Weighting Functions
     float weighting(int weightFunction);

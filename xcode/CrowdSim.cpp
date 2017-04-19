@@ -36,9 +36,6 @@ void CrowdSim::initBidirectionalSim() {
 // Update Agents positions
 void CrowdSim::update() {
     
-    //Solve for Collisions
-    RVO2Adaptor.solveCollisions();
-    
     // Update RVO Velocities of the Agents
     RVO2Adaptor.updateRVO();
     

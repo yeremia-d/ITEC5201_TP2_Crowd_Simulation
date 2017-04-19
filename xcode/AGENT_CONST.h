@@ -19,7 +19,7 @@ namespace AgentConst {
 }
 
 // Weighting Function Definition for specifiers
-namespace weightingFnDefn {
+namespace WeightingFnDefn {
     const int   TARGET_FORCE            = 0;        // Weighting Function
 }
 

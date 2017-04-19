@@ -14,7 +14,6 @@ using namespace ci;
 // Crowd Agent Default Constructor
 CrowdAgent::CrowdAgent() {
     this->acc           = vec2();
-    this->vel_pref      = vec2();
     this->vel_current   = vec2();
     this->position_o    = vec2();
     this->position_t    = vec2();
@@ -36,7 +35,7 @@ void CrowdAgent::setId(size_t id)       { this->id = id; }
 
 // Getters
 vec2    CrowdAgent::getPos()            { return position_c; }
-float   CrowdAgent::getRadius()         { return AGENT_RADIUS; }
+float   CrowdAgent::getRadius()         { return AgentConst::AGENT_RADIUS; }
 Color   CrowdAgent::getColor()          { return color; }
 vec2    CrowdAgent::getCurrentVelocity(){ return vel_current; }
 
@@ -49,7 +48,7 @@ void CrowdAgent::update() {
     // Integration
     acc           = forceToAcceleration(forces);
     vel_current   = ((15.0f * vel_RVO) + acc * 0.05f) * 3.0f;
-    position_c   += vel_current * (1 / ci::app::getFrameRate());
+    position_c   += vel_current / ci::app::getFrameRate();
 }
 
 // Computes the acceleration of an agent based on the applied forces and mass
@@ -90,7 +89,7 @@ vec2 CrowdAgent::solveSocialForce() {
 float CrowdAgent::weighting(int weightFunction) {
     
     switch(weightFunction) {
-        case TARGET_FORCE:
+        case WeightingFnDefn::TARGET_FORCE:
             return 1;
             break;
         default: return 1;

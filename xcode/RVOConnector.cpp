@@ -112,10 +112,29 @@ namespace RVOConn {
         return RVO_Vel;
     }
     
+    // Calc RVO based on inputted positions
+    std::vector<vec3> RVOConnector::RVOCalc(float r, std::vector<vec3> * pos) {
+    }
+    
     // Calculates RVO velocities for agents in agents with look ahead with max look ahead steps
     std::vector<vec3> RVOConnector::RVOLookAheadCalc() {
+        
         // "update" all agent positions based on v_current, generate positions for each time steps to a max of MAX_TIMESTEP
             // at each timestep, integrate based on velocity to get positions - create a fn that takes in agents, and returns std::vector<vec3> with [x,y,uid]
+        
+        
+        for(int i = 0; i < AgentConst::MAX_LOOK_AHEAD_STEPS; i++) {
+            std::vector<vec3> row;
+            
+            for(int agent_id = 0; agent_id < agents->size(); agent_id++) {
+                vec2 newPosition = (*agents)[agent_id].getPos() + ((float)i * (*agents)[agent_id].getCurrentVelocity() / ci::app::getFrameRate() );
+                
+                row.push_back(vec3(newPosition.x, newPosition.y, agent_id));
+            }
+            
+            LR_pos.push_back(row);
+                              
+        }
         // compute RVO for all (due to library)
         
         // Update curtailing factor on all agents based on velocity
