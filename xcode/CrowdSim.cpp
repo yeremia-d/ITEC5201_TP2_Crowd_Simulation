@@ -13,6 +13,7 @@ CrowdSim::CrowdSim() {
 
 void CrowdSim::initBidirectionalSim() {
     
+    // Create Larger Crowd going left to right
     for(int i = 50; i < 300; i +=25)
         for(int j = 100; j < 600; j +=25) {
             // Create New CrowdAgent
@@ -26,6 +27,23 @@ void CrowdSim::initBidirectionalSim() {
             
             // Adds new Crowd Agent to agents list
             agents.push_back(a);
+        }
+    
+    // Create Smaller Crowd going left to right
+    for(int i = 350; i < 600; i +=25)
+        for(int j = 200; j < 300; j +=25) {
+            // Create New CrowdAgent
+            CrowdAgent a = CrowdAgent(vec2(i,j), vec2(i-(rand() % 100 + 50), j));
+            
+            // Sets UID for crowd Agent
+            a.setId(agents.size());
+            
+            // Initialize Forces
+            a.update();
+            
+            // Adds new Crowd Agent to agents list
+            agents.push_back(a);
+
         }
     
     // Initialize RVO Adaptor

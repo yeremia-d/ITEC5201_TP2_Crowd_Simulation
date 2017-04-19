@@ -42,7 +42,7 @@ namespace RVOConn {
         std::vector<vec3> RVOLookAheadCalc();
         
         // Updates the RVO velocities in agent lists with velocities in parameter
-        void updateRVOVelocities(std::vector<vec3> * v_rvo);
+        void updateRVOVelocities(std::vector<vec3> * v_rvoBase, std::vector<vec3> * v_rvoLR);
         
 
         

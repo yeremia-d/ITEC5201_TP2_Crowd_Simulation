@@ -22,7 +22,7 @@ namespace RVOConn {
         sim->setTimeStep(0.25f);
         
         // Specify Sim default agent parameters
-        sim->setAgentDefaults(300.0f, 100, 10.0f, 5.0f, 2.0f, 2.0f);
+        sim->setAgentDefaults(200.0f, 10, 10.0f, 5.0f, 2.0f, 2.0f);
         
     }
     
@@ -64,7 +64,7 @@ namespace RVOConn {
         std::vector<vec3> rvo_lookahead = RVOLookAheadCalc();
         
         // Update agent's RVO
-        updateRVOVelocities(&rvo_base);
+        updateRVOVelocities(&rvo_base, &rvo_lookahead);
         
     }
     
@@ -114,9 +114,42 @@ namespace RVOConn {
     
     // Calc RVO based on inputted positions
     std::vector<vec3> RVOConnector::RVOCalc(float r, std::vector<vec3> * pos) {
-        //////////////
-        //////// TODO
-        /////////////
+        
+        // Sync values in RVO system with host system
+        for(int i = 0; i < agents->size(); i++) {
+            
+            // Get current velocity of agent
+            vec2 vel = (*agents)[i].getCurrentVelocity();
+            
+            // Set Agent Position in sim
+            sim->setAgentPosition(i, RVO::Vector2((*pos)[i].x, (*pos)[i].y));
+            
+            // Set agent preferred velocity in sim
+            sim->setAgentPrefVelocity(i, RVO::Vector2(vel.x, vel.y));
+            
+            // Set agent radius in sim
+            sim->setAgentRadius(i, r);
+            
+        }
+        
+        // Do simulation step
+        sim->doStep();
+        
+        //Declare vector list to return
+        std::vector<vec3> RVO_Vel;
+        
+        // Build RVO_Vel vector list
+        for(int i = 0; i < sim->getNumAgents(); i++) {
+            
+            // Get Agent Velocity from sim
+            RVO::Vector2 v = sim->getAgentVelocity(i);
+            
+            // Push velocity value into RVO_Vel
+            RVO_Vel.push_back(vec3(v.x(), v.y(), i));
+        }
+        
+        // Return RVO_Vel
+        return RVO_Vel;
     }
     
     // Calculates RVO velocities for agents in agents with look ahead with max look ahead steps
@@ -144,6 +177,7 @@ namespace RVOConn {
         
         // Compute RVO for all (due to the way the library works)
         for(int i = 0; i < LR_pos.size(); i++) {
+            
             // Solve RVO velocities based on t_i parameters (positions and radii)
             std::vector<vec3> LR_rvoList_i = RVOCalc((1/((float)i + 1)) * AgentConst::AGENT_RADIUS, &LR_pos[i]);
             
@@ -156,21 +190,39 @@ namespace RVOConn {
         
         // iterate through each time step,
             // on each iteration, iterate through agents. if i <= iMax for specific agents, then apply RVO with agent radius adjusted for the timestep, if not, continue
-        //return std::vector<vec3>();
+        
+        // Declare RVO velocities with Look Ahead
+        std::vector<vec3> RVO_LR;
+        
+        // Default, use all
+        for(int i = 0; i < agents->size(); i++) {
+            
+            vec3 v = vec3();
+            
+            for(int j = 0; j < AgentConst::MAX_LOOK_AHEAD_STEPS; j++) {
+                v.x += (1/(j+1))*LR_vel[j][i].x;
+                v.y += (1/(j+1))*LR_vel[j][i].y;
+                v.z  = LR_vel[j][i].z;
+            }
+            RVO_LR.push_back(v);
+        }
+        
+        return RVO_LR;
         
     }
     
     // Updates the RVO Velocities
-    void RVOConnector::updateRVOVelocities(std::vector<vec3> * v_rvo){
+    void RVOConnector::updateRVOVelocities(std::vector<vec3> * v_rvoBase, std::vector<vec3> * v_rvoLR){
         
         // Iterate through the v_rvo vectorList
         for(int i = 0; i < agents->size(); i++) {
             
             // get velocity vector at 'i'
-            vec3 v = v_rvo->at(i);
+            float vx = ( (*v_rvoBase)[i].x + (*v_rvoLR)[i].x );
+            float vy = ( (*v_rvoBase)[i].y + (*v_rvoLR)[i].y );
             
             // update the RVO velocity in agent i with v_rvo
-            (*agents)[i].setRVO(vec2(v.x, v.y));
+            (*agents)[i].setRVO(vec2(vx, vy));
         }
     }
 }
