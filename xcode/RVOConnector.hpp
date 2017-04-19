@@ -15,9 +15,21 @@
 
 namespace RVOConn {
     
+    class AgentCluster {
+        std::vector<CrowdAgent*> agents;
+        float r;
+        vec2 vel, pos;
+        int i_levle; //level of iteration
+        
+        void calcRadius();
+        void calcVelocity();
+        void calcPosition();
+    };
+    
     class RVOConnector {
     public:
         RVO::RVOSimulator * sim;            // Referenced variable to RVO simulator
+        RVO::RVOSimulator * LR_sim;         // Long Range RVO Simulator
         std::vector<CrowdAgent> * agents;   // Referenced variable to list of agents
         
         std::vector<std::vector<vec3>> LR_pos;  // Lookahead Position [timestep - i][array of positions each corresponding to an agent]

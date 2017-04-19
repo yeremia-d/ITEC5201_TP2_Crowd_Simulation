@@ -11,7 +11,7 @@
 
 // Agent Constants
 namespace AgentConst {
-    const int   MAX_LOOK_AHEAD_STEPS    = 5;        // Maximum number of lookahead steps
+    const int   MAX_LOOK_AHEAD_STEPS    = 15;        // Maximum number of lookahead steps
     const float MAX_AGENT_VEL_MAG       = 15.0f;    // Maximum velocity magnitude for agent
     const float MAX_AGENT_ACC_MAG       = 10.0f;    // Maximum acceleration magnitude for agent
     const float AGENT_MASS              = 1.0f;     // Agent Mass

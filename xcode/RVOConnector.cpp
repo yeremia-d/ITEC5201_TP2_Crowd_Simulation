@@ -175,7 +175,12 @@ namespace RVOConn {
             LR_pos.push_back(row);
         }
         
-        // Compute RVO for all (due to the way the library works)
+        // Create Agent clusters
+        
+        // compute agent cluster pos, vel, acc, and radius
+        
+        // Compute RVO for all levels (due to the way the library works)
+        // Need to set the sim up with agent clusters, run the sim, then clear the sim
         for(int i = 0; i < LR_pos.size(); i++) {
             
             // Solve RVO velocities based on t_i parameters (positions and radii)
