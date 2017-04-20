@@ -19,6 +19,12 @@ CrowdAgent::CrowdAgent() {
     this->position_t    = vec2();
     this->color         = Color(1,1,1);
     this->id            = 0;
+    
+    // Initiate neighbors list
+    
+    for(int init_it = 0; init_it < AgentConst::MAX_LOOK_AHEAD_STEPS; init_it++) {
+        neighbors.push_back(std::vector<CrowdAgent *>());
+    }
 }
 
 // Crowd Agent Constructor
@@ -33,11 +39,15 @@ void CrowdAgent::setColor(Color color)  { this->color = color; }
 void CrowdAgent::setRVO(vec2 v)         { this->vel_RVO = v; }
 void CrowdAgent::setId(size_t id)       { this->id = id; }
 
+void CrowdAgent::addNeighbor(CrowdAgent * agent, int i) { neighbors[i].push_back(agent); }
+
 // Getters
 vec2    CrowdAgent::getPos()            { return position_c; }
 float   CrowdAgent::getRadius()         { return AgentConst::AGENT_RADIUS; }
 Color   CrowdAgent::getColor()          { return color; }
 vec2    CrowdAgent::getCurrentVelocity(){ return vel_current; }
+
+std::vector<std::vector<CrowdAgent *>> * CrowdAgent::getNeighbors() { return &neighbors; }
 
 // Crowd Agent Update Loop
 void CrowdAgent::update() {
@@ -96,4 +106,12 @@ float CrowdAgent::weighting(int weightFunction) {
             break;
     }
 }
+
+float CrowdAgent::getDistance(CrowdAgent *agent) {
+    vec2 diff = this->getPos() - agent->getPos();
+    return glm::length(diff);
+}
+
+
+
 

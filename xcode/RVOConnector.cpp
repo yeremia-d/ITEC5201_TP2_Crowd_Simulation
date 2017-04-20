@@ -18,11 +18,18 @@ namespace RVOConn {
         // Initialize RVO Sim
         sim = new RVO::RVOSimulator();
         
+        // Initiate LR RVO Simulator
+        LR_sim = new RVO::RVOSimulator();
+        
         // Specify sim timestep
         sim->setTimeStep(0.25f);
         
+        // Set LR sime timestep
+        LR_sim->setTimeStep(0.25f);
+        
         // Specify Sim default agent parameters
         sim->setAgentDefaults(200.0f, 10, 10.0f, 5.0f, 2.0f, 2.0f);
+        LR_sim->setAgentDefaults(800.0f, 100, 10.0f, 5.0f, 2.0f, 2.0f);
         
     }
     
@@ -127,6 +134,9 @@ namespace RVOConn {
             // Set agent preferred velocity in sim
             sim->setAgentPrefVelocity(i, RVO::Vector2(vel.x, vel.y));
             
+            // Set maximum velocity
+            sim->setAgentMaxSpeed(i, AgentConst::MAX_AGENT_VEL_MAG);
+            
             // Set agent radius in sim
             sim->setAgentRadius(i, r);
             
@@ -155,64 +165,73 @@ namespace RVOConn {
     // Calculates RVO velocities for agents in agents with look ahead with max look ahead steps
     std::vector<vec3> RVOConnector::RVOLookAheadCalc() {
         
-        // Get state of system (extrapolated positions of all agents) from t_0 to t_maxIterations
-        for(int i = 0; i < AgentConst::MAX_LOOK_AHEAD_STEPS; i++) {
-            
-            // Declare row that will hold positions of agents at time t_i
-            std::vector<vec3> row;
-            
-            // Compute new positions for all agents (iterate through agents
-            for(int agent_id = 0; agent_id < agents->size(); agent_id++) {
+        // Iterate through each timestep
+        for(int ts_i = 0; ts_i < AgentConst::MAX_LOOK_AHEAD_STEPS; ts_i++) {
+        
+            // Get Neighbors for each agent for each agent at timestep step_i
+            for(int i = 0; i < agents->size(); i++) {
                 
-                // Compute new position
-                vec2 newPosition = (*agents)[agent_id].getPos() + ((float)i * (*agents)[agent_id].getCurrentVelocity() / ci::app::getFrameRate() );
+                // i is the current agent being eval (neighbor list being computad) with respect to agent n
                 
-                // push new position to row
-                row.push_back(vec3(newPosition.x, newPosition.y, agent_id));
-            }
+                // Calculate the maximum radius an agent should be searching
+                float r_max = AgentConst::AGENT_RADIUS + (2*AgentConst::MAX_AGENT_VEL_MAG)*(2^(AgentConst::MAX_LOOK_AHEAD_STEPS - 1));
+                
+                for(int n = 0; n < agents->size(); n++) {
+                    
+                    // Define the neighbor distance of agent[n] w.r.t. agent[i]
+                    // Get extrapolated positions of agents wrt timestep
+                    vec2 n_pos_ts_i = (*agents)[n].getPos() + ((float)ts_i)*(*agents)[n].getCurrentVelocity();
+                    vec2 i_pos_ts_i = (*agents)[i].getPos() + ((float)ts_i)*(*agents)[i].getCurrentVelocity();
+                    
+                    // Get distance between the two
+                    float agentDistance = length(n_pos_ts_i - i_pos_ts_i);
+                    
+                    // for each agent being checked, see if it is in the largest search radius, if not, then skip.
+                    if(agentDistance <= r_max) {
+                        
+                        // Is the agent being evaluate the current agent?
+                        if(&agents->at(i) != &agents->at(n)) {
+                                
+                            // Lower radius R+2v_max*dt_i-1
+                            float r_lower = AgentConst::AGENT_RADIUS + (2*AgentConst::MAX_AGENT_VEL_MAG)*(2^(ts_i - 2));
+                            
+                            // Upper radius R+2v_max*dt_i
+                            float r_upper = AgentConst::AGENT_RADIUS + (2*AgentConst::MAX_AGENT_VEL_MAG)*(2^(ts_i - 1));
+                            
+                            // Check to see if the agent is in this bound for this time ts_i
+                            if( agentDistance >= r_lower && agentDistance <= r_upper) {
+                                
+                                // Add to appropriate row according to bound
+                                (*agents)[i].addNeighbor(&(*agents)[n], ts_i);
+                                
+                                // Break the loop, evaluate the next neighbor
+                                break;
+                                
+                                // if the agent being eval is the same as the current agent, then continue without adding to neighbor list for current
+                            } else { continue; }
+                            
+                            // If the current agent is the agent that is being eval, then ignore and continue
+                        } else { continue; }
+                        
+                        // If the agent falls outside max, then just continue onto the next agent
+                    } else { continue; }
+                    
+                } // End iterating through other agents
+                
+                // Cluster Neighbor Agents in current ts_i timestep for current agent
+                (*agents)[i].clusterNeighbors(ts_i);
+                
+                
+            } // End get neighors
             
-            // Add row to list of positions from t_0 to t_maxIterations
-            LR_pos.push_back(row);
-        }
         
-        // Create Agent clusters
-        
-        // compute agent cluster pos, vel, acc, and radius
-        
-        // Compute RVO for all levels (due to the way the library works)
-        // Need to set the sim up with agent clusters, run the sim, then clear the sim
-        for(int i = 0; i < LR_pos.size(); i++) {
+        } // END Iterating through each timestep
             
-            // Solve RVO velocities based on t_i parameters (positions and radii)
-            std::vector<vec3> LR_rvoList_i = RVOCalc((1/((float)i + 1)) * AgentConst::AGENT_RADIUS, &LR_pos[i]);
-            
-            // Add the computed RVO velocities to LR_vel list
-            LR_vel.push_back(LR_rvoList_i);
-        }
         
-        // Update curtailing factor on all agents based on velocity
-            // update curtailing fn that updates max num of iterations based on current vel of agent
         
-        // iterate through each time step,
-            // on each iteration, iterate through agents. if i <= iMax for specific agents, then apply RVO with agent radius adjusted for the timestep, if not, continue
+       
         
-        // Declare RVO velocities with Look Ahead
-        std::vector<vec3> RVO_LR;
-        
-        // Default, use all
-        for(int i = 0; i < agents->size(); i++) {
-            
-            vec3 v = vec3();
-            
-            for(int j = 0; j < AgentConst::MAX_LOOK_AHEAD_STEPS; j++) {
-                v.x += (1/(j+1))*LR_vel[j][i].x;
-                v.y += (1/(j+1))*LR_vel[j][i].y;
-                v.z  = LR_vel[j][i].z;
-            }
-            RVO_LR.push_back(v);
-        }
-        
-        return RVO_LR;
+        // Cluster agents in each timestep for each neighborlist of each agent
         
     }
     

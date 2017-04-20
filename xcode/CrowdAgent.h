@@ -34,6 +34,8 @@ private:
     
     std::vector<vec2> vel_RVOLR;    // Long Range RVO
     
+    std::vector<std::vector<CrowdAgent *>> neighbors; // Neighbors of Crowd agent for LR RVO
+    
     size_t id;                      // Agent ID
     
     int AgentMaxLookaheadSteps;     // Agent max look ahead steps after curtailing
@@ -56,6 +58,11 @@ public:
     vec2 getCurrentVelocity();
     vec2 getAcc();
     
+    // Add Neighbor at row i
+    void addNeighbor(CrowdAgent * agent, int i);
+    
+    std::vector<std::vector<CrowdAgent *>> * getNeighbors();
+    
     // Perform integration (acc->vel->pos)
     void update();
     
@@ -76,6 +83,8 @@ public:
     
     // Weighting Functions
     float weighting(int weightFunction);
+    
+    float getDistance(CrowdAgent * agent);
 };
 
 #endif /* CrowdAgent_hpp */

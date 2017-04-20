@@ -32,9 +32,6 @@ namespace RVOConn {
         RVO::RVOSimulator * LR_sim;         // Long Range RVO Simulator
         std::vector<CrowdAgent> * agents;   // Referenced variable to list of agents
         
-        std::vector<std::vector<vec3>> LR_pos;  // Lookahead Position [timestep - i][array of positions each corresponding to an agent]
-        std::vector<std::vector<vec3>> LR_vel;  // Look ahead solved RVO [timestep - i][array of vec3 corresponding to agent]
-        
         // Default Constructor
         RVOConnector();
         
