@@ -15,17 +15,6 @@
 
 namespace RVOConn {
     
-    class AgentCluster {
-        std::vector<CrowdAgent*> agents;
-        float r;
-        vec2 vel, pos;
-        int i_levle; //level of iteration
-        
-        void calcRadius();
-        void calcVelocity();
-        void calcPosition();
-    };
-    
     class RVOConnector {
     public:
         RVO::RVOSimulator * sim;            // Referenced variable to RVO simulator

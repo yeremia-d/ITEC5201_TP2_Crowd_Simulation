@@ -23,5 +23,9 @@ namespace WeightingFnDefn {
     const int   TARGET_FORCE            = 0;        // Weighting Function
 }
 
+
+namespace RVOConnConst {
+    const float CLUSTER_MAX_AGENT_SEPARATION = 25.0f;
+}
 #endif /* AGENT_CONST_h */
 

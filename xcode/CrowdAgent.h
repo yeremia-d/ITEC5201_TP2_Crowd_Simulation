@@ -13,6 +13,7 @@
 
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
+#include "RVOConnector.hpp"
 
 using namespace ci;
 
@@ -35,6 +36,8 @@ private:
     std::vector<vec2> vel_RVOLR;    // Long Range RVO
     
     std::vector<std::vector<CrowdAgent *>> neighbors; // Neighbors of Crowd agent for LR RVO
+    
+    std::vector<RVOConn::>
     
     size_t id;                      // Agent ID
     
@@ -84,7 +87,11 @@ public:
     // Weighting Functions
     float weighting(int weightFunction);
     
+    // returns the distance between this agent and a given agent
     float getDistance(CrowdAgent * agent);
+    
+    // Clusters neighbors in a given timestep ts_i
+    void clusterNeighbors(int ts_i);
 };
 
 #endif /* CrowdAgent_hpp */

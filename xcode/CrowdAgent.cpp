@@ -112,6 +112,9 @@ float CrowdAgent::getDistance(CrowdAgent *agent) {
     return glm::length(diff);
 }
 
+void CrowdAgent::clusterNeighbors(int ts_i) {
+}
+
 
 
 
