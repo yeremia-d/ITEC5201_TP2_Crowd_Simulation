@@ -174,7 +174,7 @@ namespace RVOConn {
                 // i is the current agent being eval (neighbor list being computad) with respect to agent n
                 
                 // Calculate the maximum radius an agent should be searching
-                float r_max = AgentConst::AGENT_RADIUS + (2*AgentConst::MAX_AGENT_VEL_MAG)*(2^(AgentConst::MAX_LOOK_AHEAD_STEPS - 1));
+                float r_max = AgentConst::AGENT_RADIUS + (2*AgentConst::MAX_AGENT_VEL_MAG)*(powf(2, AgentConst::MAX_LOOK_AHEAD_STEPS - 1));
                 
                 for(int n = 0; n < agents->size(); n++) {
                     
@@ -193,10 +193,10 @@ namespace RVOConn {
                         if(&agents->at(i) != &agents->at(n)) {
                                 
                             // Lower radius R+2v_max*dt_i-1
-                            float r_lower =  AgentConst::AGENT_RADIUS + (2*AgentConst::MAX_AGENT_VEL_MAG)*(powf(2, (float)ts_i - 2));
+                            float r_lower =  AgentConst::AGENT_RADIUS + (2*AgentConst::MAX_AGENT_VEL_MAG)*(powf(2, (float)ts_i - 1 ));
                             
                             // Upper radius R+2v_max*dt_i
-                            float r_upper = AgentConst::AGENT_RADIUS + (2*AgentConst::MAX_AGENT_VEL_MAG)*(powf(2, (float)ts_i - 1));
+                            float r_upper = AgentConst::AGENT_RADIUS + (2*AgentConst::MAX_AGENT_VEL_MAG)*(powf(2, (float)ts_i));
                             
                             // Check to see if the agent is in this bound for this time ts_i
                             if( agentDistance >= r_lower && agentDistance <= r_upper) {
@@ -251,6 +251,8 @@ namespace RVOConn {
             
             vec2 agent_pos = (*agents)[agentId].getPos();
             vec2 agent_vel = (*agents)[agentId].getCurrentVelocity();
+            
+            
             std::vector<std::vector<AgentCluster>> * clusters = (*agents)[agentId].getClusters();
             
             

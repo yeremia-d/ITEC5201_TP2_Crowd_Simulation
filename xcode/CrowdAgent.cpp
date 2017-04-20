@@ -20,9 +20,8 @@ CrowdAgent::CrowdAgent() {
     this->color         = Color(1,1,1);
     this->id            = 0;
     
-    for(int i = 0; i < AgentConst::MAX_LOOK_AHEAD_STEPS; i++) {
-        clusters.push_back(std::vector<AgentCluster>());
-    }
+    // Initiate Cluster List
+    for(int i = 0; i < AgentConst::MAX_LOOK_AHEAD_STEPS; i++) clusters.push_back(std::vector<AgentCluster>());
     
 }
 
@@ -35,19 +34,17 @@ CrowdAgent::CrowdAgent(vec2 position_o, vec2 position_t) : CrowdAgent::CrowdAgen
 
 // Sets Agent Color
 void CrowdAgent::setColor(Color color)  { this->color = color; }
-void CrowdAgent::setRVO(vec2 v)         { this->vel_RVO = v; }
-void CrowdAgent::setId(size_t id)       { this->id = id; }
+void CrowdAgent::setRVO(vec2 v)         { this->vel_RVO = v;   }
+void CrowdAgent::setId(size_t id)       { this->id = id;       }
 
 // Adds a neighbor at a specific ts_i
-void CrowdAgent::addNeighbor(CrowdAgent * agent) {
-    neighbors.push_back(agent);
-}
+void CrowdAgent::addNeighbor(CrowdAgent * agent) { neighbors.push_back(agent); }
 
 // Getters
-vec2    CrowdAgent::getPos()            { return position_c; }
-float   CrowdAgent::getRadius()         { return AgentConst::AGENT_RADIUS; }
-Color   CrowdAgent::getColor()          { return color; }
-vec2    CrowdAgent::getCurrentVelocity(){ return vel_current; }
+vec2    CrowdAgent::getPos()             { return position_c;               }
+vec2    CrowdAgent::getCurrentVelocity() { return vel_current;              }
+float   CrowdAgent::getRadius()          { return AgentConst::AGENT_RADIUS; }
+Color   CrowdAgent::getColor()           { return color;                    }
 
 
 // Crowd Agent Update Loop
@@ -57,29 +54,24 @@ void CrowdAgent::update() {
     vec2 forces = solveForces();
     
     // Integration
-    acc           = forceToAcceleration(forces);
+    acc           = glm::normalize(forceToAcceleration(forces));
     vel_current   = ((15.0f * vel_RVO) + acc * 0.05f) * 3.0f;
     position_c   += vel_current / ci::app::getFrameRate();
 }
 
 // Computes the acceleration of an agent based on the applied forces and mass
-vec2 CrowdAgent::forceToAcceleration(vec2 f) {
-    return f/AgentConst::AGENT_MASS;
-}
+vec2 CrowdAgent::forceToAcceleration(vec2 f) { return f/AgentConst::AGENT_MASS; }
 
 // Force Solvers
 vec2 CrowdAgent::solveForces() {
     // Driving Force to Destination
     vec2 f_d = solveTargetForce();
     
-    // RVO/LR-RVO Velocity (take it in as a velocity)
-    vec2 f_r = vel_RVO;
-    
     // Solve for social forces
     vec2 f_s = solveSocialForce();
     
     // Sum forces
-    vec2 f_sum = f_d + f_r + f_s;
+    vec2 f_sum = f_d + f_s;
     
     // Return the summed forces to be integrated
     return f_sum;

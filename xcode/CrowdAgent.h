@@ -25,31 +25,27 @@ class CrowdAgent {
 private:
     
     // Class Members
-    vec2 acc;                       // Acceleration
-    vec2 vel_current;               // Current Velocity
-    vec2 vel_RVO;                   // RVO velocity that is solved in the sim
-    vec2 force_collision;           // Collision Force when checking for collisions
-    vec2 position_o;                // Starting position
-    vec2 position_t;                // Agent Destination (Target)
-    vec2 position_c;                // Current Position
+    vec2    acc,               // Acceleration
+            vel_current,       // Current Velocity
+            vel_RVO,           // RVO velocity that is solved in the sim
+            position_o,        // Starting position
+            position_t,        // Agent Destination (Target)
+            position_c;        // Current Position
     
-    Color color;                    // Agent Color
+    Color   color;             // Agent Color
     
-    std::vector<vec2> vel_RVOLR;    // Long Range RVO
+    size_t  id;                // Agent ID
     
-    std::vector<CrowdAgent *> neighbors; // Neighbors of Crowd agent for LR RVO
-    
-    std::vector<std::vector<AgentCluster>> clusters; // Clusters of agents
-    
-    size_t id;                      // Agent ID
-    
-    int AgentMaxLookaheadSteps;     // Agent max look ahead steps after curtailing
+    std::vector<CrowdAgent *> neighbors;                // Neighbors of Crowd agent for LR RVO
+    std::vector<std::vector<AgentCluster>> clusters;    // Clusters of agents
     
 public:
     
-    // Constructors
-    CrowdAgent();                                   // Default
-    CrowdAgent(vec2 position_o, vec2 position_t);   // With defined start and target positions
+    // Default Constructor
+    CrowdAgent();
+    
+    // With defined start and target positions
+    CrowdAgent(vec2 position_o, vec2 position_t);
     
     // Setters
     void setColor(Color color);
@@ -58,10 +54,10 @@ public:
     
     // Getters
     vec2 getPos();
-    float getRadius();
-    Color getColor();
     vec2 getCurrentVelocity();
     vec2 getAcc();
+    float getRadius();
+    Color getColor();
     
     // Add Neighbor at row i
     void addNeighbor(CrowdAgent * agent);
@@ -99,6 +95,7 @@ public:
     // Clusters neighbors in a given timestep ts_i
     void clusterNeighbors(int ts_i);
     
+    // Solves attributes for clusters
     void solveClusterAttributes();
 };
 

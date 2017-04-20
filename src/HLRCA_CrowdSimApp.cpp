@@ -21,9 +21,30 @@ class HLRCA_CrowdSimApp : public App {
     
 };
 
-void HLRCA_CrowdSimApp::setup()                         { sim->initBidirectionalSim(); }                // Initialize Simulation
-void HLRCA_CrowdSimApp::mouseDown( MouseEvent event )   {}
-void HLRCA_CrowdSimApp::update()                        { sim->update(); }                              // Update Simulation
-void HLRCA_CrowdSimApp::draw()                          { gl::clear( Color( 0, 0, 0 ) ); sim->draw(); } // Draw Agents
+// Initialize Simulation
+void HLRCA_CrowdSimApp::setup() {
+    sim->initBidirectionalSim();
+}
 
+// Handle Mousedown event
+void HLRCA_CrowdSimApp::mouseDown( MouseEvent event ) {}
+
+// Update function during execution loop
+void HLRCA_CrowdSimApp::update() {
+    
+    // Update Simulation
+    sim->update();
+}
+
+// Draw action during execution loop
+void HLRCA_CrowdSimApp::draw() {
+    
+    // Clear the screen
+    gl::clear( Color( 0, 0, 0 ) );
+    
+    // Draw the simulation
+    sim->draw();
+}
+
+// App parameters and settings
 CINDER_APP( HLRCA_CrowdSimApp, RendererGl, [&]( App::Settings *settings ) { settings->setWindowSize( 1280, 720 );})

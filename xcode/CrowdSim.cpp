@@ -8,19 +8,19 @@
 
 #include "CrowdSim.h"
 
-CrowdSim::CrowdSim() {
-}
-
 void CrowdSim::initBidirectionalSim() {
     
     // Create Larger Crowd going left to right
     for(int i = 50; i < 300; i +=25)
         for(int j = 100; j < 600; j +=25) {
             // Create New CrowdAgent
-            CrowdAgent a = CrowdAgent(vec2(i,j), vec2(i+(rand() % 500 + 300), j));
+            CrowdAgent a = CrowdAgent(vec2(i,j), vec2(app::getWindowSize().x, j));
             
             // Sets UID for crowd Agent
             a.setId(agents.size());
+            
+            // Sets Color of agent
+            a.setColor(Color(1,0,0));
             
             // Initialize Forces
             a.update();
@@ -33,10 +33,13 @@ void CrowdSim::initBidirectionalSim() {
     for(int i = 350; i < 600; i +=25)
         for(int j = 200; j < 300; j +=25) {
             // Create New CrowdAgent
-            CrowdAgent a = CrowdAgent(vec2(i,j), vec2(i-(rand() % 100 + 50), j));
+            CrowdAgent a = CrowdAgent(vec2(i,j), vec2(0, j));
             
             // Sets UID for crowd Agent
             a.setId(agents.size());
+            
+            // Sets Color of agent
+            a.setColor(Color(0,0,1));
             
             // Initialize Forces
             a.update();

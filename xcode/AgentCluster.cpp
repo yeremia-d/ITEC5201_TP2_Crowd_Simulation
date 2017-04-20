@@ -39,7 +39,7 @@ void AgentCluster::calcRadius() {
         if(l > maxRad) { maxRad = l; }
     }
     
-    cluster_radius = 2*AgentConst::AGENT_RADIUS + maxRad;
+    cluster_radius = AgentConst::AGENT_RADIUS + maxRad*(ts_i);
 }
 
 void AgentCluster::calcPosition() {
