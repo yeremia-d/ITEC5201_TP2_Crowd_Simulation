@@ -26,3 +26,36 @@ bool AgentCluster::isFull() {
 vec2 AgentCluster::getRootAgentPosition() {
     return position[0];
 }
+
+void AgentCluster::calcRadius() {
+    
+    calcPosition();
+    
+    float maxRad = AgentConst::AGENT_RADIUS;
+    
+    for(int i = 0; i < position.size(); i++) {
+        float l = glm::length(cluster_position - position[i]);
+        
+        if(l > maxRad) { maxRad = l; }
+    }
+    
+    cluster_radius = 2*AgentConst::AGENT_RADIUS + maxRad;
+}
+
+void AgentCluster::calcPosition() {
+    vec2 sum = vec2();
+    
+    for(int i = 0; i < position.size(); i++) { sum += position[i]; }
+    
+    cluster_position = sum/(float)velocity.size();
+}
+
+void AgentCluster::calcVelocity() {
+    vec2 sum = vec2();
+    
+    for(int i = 0; i < velocity.size(); i++) { sum += velocity[i]; }
+    
+    cluster_velocity = sum/(float)velocity.size();
+    
+    
+}

@@ -20,6 +20,10 @@ CrowdAgent::CrowdAgent() {
     this->color         = Color(1,1,1);
     this->id            = 0;
     
+    for(int i = 0; i < AgentConst::MAX_LOOK_AHEAD_STEPS; i++) {
+        clusters.push_back(std::vector<AgentCluster>());
+    }
+    
 }
 
 // Crowd Agent Constructor
@@ -111,9 +115,6 @@ float CrowdAgent::getDistance(CrowdAgent *agent) {
 
 void CrowdAgent::clusterNeighbors(int ts_i) {
     
-    // Clear all clusters from previous iteration
-    clusters.clear();
-    
     // Iterate through all neighbors
     while(neighbors.size() > 0) {
         
@@ -168,6 +169,17 @@ void CrowdAgent::clusterNeighbors(int ts_i) {
     
     // Once all neighbors are processed, then clear the neighbor list (house cleaning)
     neighbors.clear();
+}
+
+// Calculate cluster attributes
+void CrowdAgent::solveClusterAttributes() {
+    for(int ts_i = 0; ts_i < clusters.size(); ts_i++) {
+        for(int i = 0; i < clusters[ts_i].size(); i++) {
+            clusters[ts_i].at(i).calcPosition();
+            clusters[ts_i].at(i).calcRadius();
+            clusters[ts_i].at(i).calcVelocity();
+        }
+    }
 }
 
 

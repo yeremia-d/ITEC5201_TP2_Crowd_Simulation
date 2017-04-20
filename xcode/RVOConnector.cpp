@@ -71,7 +71,7 @@ namespace RVOConn {
         std::vector<vec3> rvo_lookahead = RVOLookAheadCalc();
         
         // Update agent's RVO
-        updateRVOVelocities(&rvo_base, &rvo_lookahead);
+        //updateRVOVelocities(&rvo_base, &rvo_lookahead);
         
     }
     
@@ -216,17 +216,28 @@ namespace RVOConn {
                         // If the agent falls outside max, then just continue onto the next agent
                     } else { continue; }
                     
-                } // End iterating through other agents
+                } // End iterating through other agents to get neighbors
                 
                 // Cluster Neighbor Agents in current ts_i timestep for current agent
                 (*agents)[i].clusterNeighbors(ts_i);
                 
+                // Compute cluster member variables
+                (*agents)[i].solveClusterAttributes();
                 
-            } // End get neighors
+            } // End iterating through agents
             
         
         } // END Iterating through each timestep
         
+        
+        // Perform RVO for each agent (RVO will be outputted) based on agent i position
+        // and velocity, and based on the velocities, positions, and radii of the clusters.
+        
+        // TODO: Setup RVO with clusters and agent
+        
+        std::vector<vec3> LR_RVO;
+        
+        return LR_RVO;
         
     }
     

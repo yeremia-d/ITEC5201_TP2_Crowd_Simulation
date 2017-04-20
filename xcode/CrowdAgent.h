@@ -95,6 +95,8 @@ public:
     
     // Clusters neighbors in a given timestep ts_i
     void clusterNeighbors(int ts_i);
+    
+    void solveClusterAttributes();
 };
 
 #endif /* CrowdAgent_hpp */
