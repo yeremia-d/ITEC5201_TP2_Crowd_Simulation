@@ -11,14 +11,20 @@
 
 #include <stdio.h>
 
+using namespace ci;
+
 class AgentCluster {
     
 private:
     float radius;
-    ci::vec2 velocity, position;
+    std::vector<vec2> velocity, position;
     int ts_i; //level of iteration
     
 public:
+    AgentCluster(vec2 position, vec2 velocity, int ts_i);
+    void addAgent(vec2 position, vec2 velocity);
+    vec2 getRootAgentPosition();
+    bool isFull();
     void calcRadius();
     void calcVelocity();
     void calcPosition();

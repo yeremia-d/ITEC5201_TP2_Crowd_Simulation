@@ -39,7 +39,7 @@ private:
     
     std::vector<CrowdAgent *> neighbors; // Neighbors of Crowd agent for LR RVO
     
-    std::vector<AgentCluster> clusters; // Clusters of agents
+    std::vector<std::vector<AgentCluster>> clusters; // Clusters of agents
     
     size_t id;                      // Agent ID
     

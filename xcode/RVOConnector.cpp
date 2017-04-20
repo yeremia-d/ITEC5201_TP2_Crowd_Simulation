@@ -226,12 +226,7 @@ namespace RVOConn {
             
         
         } // END Iterating through each timestep
-            
         
-        
-       
-        
-        // Cluster agents in each timestep for each neighborlist of each agent
         
     }
     

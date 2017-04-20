@@ -110,6 +110,64 @@ float CrowdAgent::getDistance(CrowdAgent *agent) {
 }
 
 void CrowdAgent::clusterNeighbors(int ts_i) {
+    
+    // Clear all clusters from previous iteration
+    clusters.clear();
+    
+    // Iterate through all neighbors
+    while(neighbors.size() > 0) {
+        
+        // Tage a neighbor
+        CrowdAgent a = *neighbors.back();
+        
+        // Set clusterfound flag to false
+        bool clusterFound = false;
+        
+        // if there are clusters at this timeframe
+        if(clusters[ts_i].size() > 0) {
+
+            // iterate through cluster to see if there is a cluster that a can join
+            for(int i = 0; i < clusters[ts_i].size(); i++) {
+                
+                // If the cluster is full, continue
+                if(clusters[ts_i].at(i).isFull()) {continue;}
+                
+                // If the agent in question is further than the max separation, continue
+                if(glm::length(clusters[ts_i].at(i).getRootAgentPosition() - a.getPos()) > RVOConnConst::CLUSTER_MAX_AGENT_SEPARATION) { continue; }
+                
+                // Else, if agent eval can go into cluster and is within max separation, add to cluster
+                else {
+                    // Add agent to cluster
+                    clusters[ts_i].at(i).addAgent(a.getPos(), a.getCurrentVelocity());
+                    
+                    // set cluster found flag to true
+                    clusterFound = true;
+                    
+                    // remove agent from neighbors
+                    neighbors.pop_back();
+                    
+                    //break loop
+                    break;
+                }
+            }
+        }
+        
+        // If no cluster is found or no clusters in this timeframe, create a new cluster
+        if(!clusterFound || clusters[ts_i].size() == 0) {
+            
+            // Create new cluster
+            AgentCluster c = AgentCluster(a.getPos(), a.getCurrentVelocity(), ts_i);
+            
+            // Push cluster into cluster list
+            clusters[ts_i].push_back(c);
+            
+            // remove agent from neighbor list
+            neighbors.pop_back(); // remove agent entry from neighbors list
+        }
+    }
+    
+    // Once all neighbors are processed, then clear the neighbor list (house cleaning)
+    neighbors.clear();
 }
 
 
