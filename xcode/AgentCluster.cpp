@@ -59,3 +59,7 @@ void AgentCluster::calcVelocity() {
     
     
 }
+
+vec2 AgentCluster::getClusterVelocity() { return cluster_velocity; }
+vec2 AgentCluster::getClusterPosition() { return cluster_position; }
+float AgentCluster::getClusterRadius() { return cluster_radius; }

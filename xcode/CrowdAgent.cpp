@@ -182,6 +182,11 @@ void CrowdAgent::solveClusterAttributes() {
     }
 }
 
+std::vector<std::vector<AgentCluster>> * CrowdAgent::getClusters() {
+    return &clusters;
+}
+
+
 
 
 

@@ -15,7 +15,7 @@ namespace AgentConst {
     const float MAX_AGENT_VEL_MAG       = 10.0f;    // Maximum velocity magnitude for agent
     const float MAX_AGENT_ACC_MAG       = 10.0f;    // Maximum acceleration magnitude for agent
     const float AGENT_MASS              = 1.0f;     // Agent Mass
-    const float AGENT_RADIUS            = 5.0f;     // Agent Radius
+    const float AGENT_RADIUS            = 10.0f;     // Agent Radius
 }
 
 // Weighting Function Definition for specifiers

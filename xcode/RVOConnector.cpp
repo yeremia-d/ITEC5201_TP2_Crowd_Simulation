@@ -29,7 +29,6 @@ namespace RVOConn {
         
         // Specify Sim default agent parameters
         sim->setAgentDefaults(200.0f, 10, 10.0f, 5.0f, 2.0f, 2.0f);
-        LR_sim->setAgentDefaults(800.0f, 100, 10.0f, 5.0f, 2.0f, 2.0f);
         
     }
     
@@ -71,7 +70,7 @@ namespace RVOConn {
         std::vector<vec3> rvo_lookahead = RVOLookAheadCalc();
         
         // Update agent's RVO
-        //updateRVOVelocities(&rvo_base, &rvo_lookahead);
+        updateRVOVelocities(&rvo_base, &rvo_lookahead);
         
     }
     
@@ -196,7 +195,7 @@ namespace RVOConn {
                             float r_lower = AgentConst::AGENT_RADIUS + (2*AgentConst::MAX_AGENT_VEL_MAG)*(2^(ts_i - 2));
                             
                             // Upper radius R+2v_max*dt_i
-                            float r_upper = AgentConst::AGENT_RADIUS + (2*AgentConst::MAX_AGENT_VEL_MAG)*(2^(ts_i - 1));
+                            float r_upper = AgentConst::AGENT_RADIUS + (2*AgentConst::MAX_AGENT_VEL_MAG)*(2^(ts_i - 1))*30;
                             
                             // Check to see if the agent is in this bound for this time ts_i
                             if( agentDistance >= r_lower && agentDistance <= r_upper) {
@@ -235,8 +234,61 @@ namespace RVOConn {
         
         // TODO: Setup RVO with clusters and agent
         
+        // Initialize LR_RVO Vector list
         std::vector<vec3> LR_RVO;
         
+        //Iterate through agent list
+        for(int agentId = 0; agentId < agents->size(); agentId++) {
+            
+            // Create a new Sim
+            RVO::RVOSimulator * LRSim = new RVO::RVOSimulator();
+            
+            // Setup Sim
+            LRSim->setTimeStep(0.25f);
+            
+            LRSim->setAgentDefaults(800.0f, 100, 10.0f, 5.0f, 2.0f, 2.0f);
+            
+            vec2 agent_pos = (*agents)[agentId].getPos();
+            vec2 agent_vel = (*agents)[agentId].getCurrentVelocity();
+            std::vector<std::vector<AgentCluster>> * clusters = (*agents)[agentId].getClusters();
+            
+            
+            // Add Agent i
+            LRSim->addAgent(RVO::Vector2(agent_pos.x, agent_pos.y));
+            size_t id = 0;
+            
+            // Set Agent Preferred Velocity
+            LRSim->setAgentPrefVelocity(id, RVO::Vector2(agent_vel.x, agent_vel.y));
+            
+            
+            
+            // Add Clusters of i by iterating through the agents clusters
+            for(int cr_it = 0; cr_it < clusters->size(); cr_it++){
+                for(int crc_it = 0; crc_it < (*clusters)[cr_it].size(); crc_it++) {
+                    
+                    AgentCluster cluster = (*clusters)[cr_it].at(crc_it);
+                    vec2 cluster_position = cluster.getClusterPosition();
+                    vec2 cluster_velocity = cluster.getClusterVelocity();
+                    float cluster_radius = cluster.getClusterRadius();
+                    
+                    size_t clusterId = LRSim->addAgent(RVO::Vector2(cluster_position.x, cluster_position.y));
+                    LRSim->setAgentPrefVelocity(clusterId, RVO::Vector2(cluster_velocity.x, cluster_velocity.y));
+                    LRSim->setAgentRadius(clusterId, cluster_radius);
+                }
+            }
+            
+            //Perform Sim
+            LRSim->doStep();
+            
+            // Get RVO Velocity
+            RVO::Vector2 RVO_v = LRSim->getAgentVelocity(id);
+            
+            // Push RVO Velocity to LR_RVO
+            LR_RVO.push_back(vec3(RVO_v.x(), RVO_v.y(), id));
+            
+        }
+        
+        // Return RVO 
         return LR_RVO;
         
     }
@@ -248,11 +300,13 @@ namespace RVOConn {
         for(int i = 0; i < agents->size(); i++) {
             
             // get velocity vector at 'i'
-            float vx = ( (*v_rvoBase)[i].x + (*v_rvoLR)[i].x );
-            float vy = ( (*v_rvoBase)[i].y + (*v_rvoLR)[i].y );
+            vec2 rvo_b = vec2((*v_rvoBase)[i].x, (*v_rvoBase)[i].y);
+            vec2 rvo_lr = vec2((*v_rvoLR)[i].x, (*v_rvoLR)[i].y);
+            vec2 v = rvo_b + rvo_lr;
+            float mag = glm::length(rvo_b + rvo_lr)/2;
             
             // update the RVO velocity in agent i with v_rvo
-            (*agents)[i].setRVO(vec2(vx, vy));
+            (*agents)[i].setRVO( mag * glm::normalize(v) );
         }
     }
 }

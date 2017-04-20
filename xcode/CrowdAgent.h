@@ -69,6 +69,9 @@ public:
     // Returns the neighbor List
     std::vector<std::vector<CrowdAgent *>> * getNeighbors();
     
+    // Returns the clusters
+    std::vector<std::vector<AgentCluster>> * getClusters();
+    
     // Perform integration (acc->vel->pos)
     void update();
     
