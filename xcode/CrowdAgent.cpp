@@ -20,11 +20,6 @@ CrowdAgent::CrowdAgent() {
     this->color         = Color(1,1,1);
     this->id            = 0;
     
-    // Initiate neighbors list
-    
-    for(int init_it = 0; init_it < AgentConst::MAX_LOOK_AHEAD_STEPS; init_it++) {
-        neighbors.push_back(std::vector<CrowdAgent *>());
-    }
 }
 
 // Crowd Agent Constructor
@@ -39,7 +34,10 @@ void CrowdAgent::setColor(Color color)  { this->color = color; }
 void CrowdAgent::setRVO(vec2 v)         { this->vel_RVO = v; }
 void CrowdAgent::setId(size_t id)       { this->id = id; }
 
-void CrowdAgent::addNeighbor(CrowdAgent * agent, int i) { neighbors[i].push_back(agent); }
+// Adds a neighbor at a specific ts_i
+void CrowdAgent::addNeighbor(CrowdAgent * agent) {
+    neighbors.push_back(agent);
+}
 
 // Getters
 vec2    CrowdAgent::getPos()            { return position_c; }
@@ -47,7 +45,6 @@ float   CrowdAgent::getRadius()         { return AgentConst::AGENT_RADIUS; }
 Color   CrowdAgent::getColor()          { return color; }
 vec2    CrowdAgent::getCurrentVelocity(){ return vel_current; }
 
-std::vector<std::vector<CrowdAgent *>> * CrowdAgent::getNeighbors() { return &neighbors; }
 
 // Crowd Agent Update Loop
 void CrowdAgent::update() {

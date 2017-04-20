@@ -202,7 +202,7 @@ namespace RVOConn {
                             if( agentDistance >= r_lower && agentDistance <= r_upper) {
                                 
                                 // Add to appropriate row according to bound
-                                (*agents)[i].addNeighbor(&(*agents)[n], ts_i);
+                                (*agents)[i].addNeighbor(&(*agents)[n]);
                                 
                                 // Break the loop, evaluate the next neighbor
                                 break;

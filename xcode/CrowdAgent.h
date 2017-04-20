@@ -13,9 +13,11 @@
 
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
-#include "RVOConnector.hpp"
+
+#include "AgentCluster.hpp"
 
 using namespace ci;
+
 
 
 class CrowdAgent {
@@ -35,9 +37,9 @@ private:
     
     std::vector<vec2> vel_RVOLR;    // Long Range RVO
     
-    std::vector<std::vector<CrowdAgent *>> neighbors; // Neighbors of Crowd agent for LR RVO
+    std::vector<CrowdAgent *> neighbors; // Neighbors of Crowd agent for LR RVO
     
-    std::vector<RVOConn::>
+    std::vector<AgentCluster> clusters; // Clusters of agents
     
     size_t id;                      // Agent ID
     
@@ -62,8 +64,9 @@ public:
     vec2 getAcc();
     
     // Add Neighbor at row i
-    void addNeighbor(CrowdAgent * agent, int i);
+    void addNeighbor(CrowdAgent * agent);
     
+    // Returns the neighbor List
     std::vector<std::vector<CrowdAgent *>> * getNeighbors();
     
     // Perform integration (acc->vel->pos)
