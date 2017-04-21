@@ -56,7 +56,13 @@ void CrowdAgent::update() {
     // Integration
     acc           = glm::normalize(forceToAcceleration(forces));
     vel_current   = ((15.0f * vel_RVO) + acc * 0.05f) * 3.0f;
-    position_c   += vel_current / ci::app::getFrameRate();
+    
+    vec2 vel_c_n = glm::normalize(vel_current);
+    
+    float m = glm::length(vel_current);
+    float mC = glm::clamp(m, 0.0f, AgentConst::MAX_AGENT_VEL_MAG);
+    
+    position_c   += mC*vel_c_n / ci::app::getFrameRate();
 }
 
 // Computes the acceleration of an agent based on the applied forces and mass
@@ -67,11 +73,8 @@ vec2 CrowdAgent::solveForces() {
     // Driving Force to Destination
     vec2 f_d = solveTargetForce();
     
-    // Solve for social forces
-    vec2 f_s = solveSocialForce();
-    
     // Sum forces
-    vec2 f_sum = f_d + f_s;
+    vec2 f_sum = f_d;
     
     // Return the summed forces to be integrated
     return f_sum;
@@ -82,24 +85,7 @@ vec2 CrowdAgent::solveTargetForce() {
     return position_t - position_c;
 }
 
-vec2 CrowdAgent::solveSocialForce() {
-    vec2 socialForce = vec2();
-    
-    return socialForce;
-
-}
-
-float CrowdAgent::weighting(int weightFunction) {
-    
-    switch(weightFunction) {
-        case WeightingFnDefn::TARGET_FORCE:
-            return 1;
-            break;
-        default: return 1;
-            break;
-    }
-}
-
+// Gets the distance between this agent and the agent provided in the parameter
 float CrowdAgent::getDistance(CrowdAgent *agent) {
     vec2 diff = this->getPos() - agent->getPos();
     return glm::length(diff);
@@ -130,6 +116,7 @@ void CrowdAgent::clusterNeighbors(int ts_i) {
                 
                 // Else, if agent eval can go into cluster and is within max separation, add to cluster
                 else {
+                    
                     // Add agent to cluster
                     clusters[ts_i].at(i).addAgent(a.getPos(), a.getCurrentVelocity());
                     

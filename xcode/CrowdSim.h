@@ -21,7 +21,7 @@ public:
     std::vector<CrowdAgent> agents;         // List of Agents in the system
     
     RVOConn::RVOConnector RVO2Adaptor;      // RVO System Adaptor
-    
+        
     // Initializes a bidirectional flow crowd simulation
     void initBidirectionalSim();
     
@@ -30,6 +30,9 @@ public:
     
     // Draw agents in the simulation
     void draw();
+    
+    // Returns positions of all agents;
+    std::vector<vec2> getAgentPositions();
 };
 
 #endif /* CrowdSim_hpp */

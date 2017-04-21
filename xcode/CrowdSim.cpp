@@ -65,6 +65,8 @@ void CrowdSim::update() {
     
 }
 
+
+
 // Draws the agents in the groups
 void CrowdSim::draw() {
     
@@ -76,6 +78,17 @@ void CrowdSim::draw() {
         gl::color(agents[i].getColor());
         gl::drawSolidCircle(agents[i].getPos(), agents[i].getRadius());
     }
+}
+
+std::vector<vec2> CrowdSim::getAgentPositions() {
+    
+    std::vector<vec2> positions;
+    
+    for(int i = 0; i < agents.size(); i++) {
+        positions.push_back(agents[i].getPos());
+    }
+    
+    return positions;
 }
 
 

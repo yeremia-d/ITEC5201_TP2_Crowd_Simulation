@@ -74,20 +74,11 @@ public:
     // Solves all forces (repulsive and attractive)
     vec2 solveForces();
     
-    // Solve for social forces
-    vec2 solveSocialForce();
-    
     // Returns normalized vector towards the agent's target
     vec2 solveTargetForce();
     
     // Converts a Force to Acceleration based on agent's mass
     vec2 forceToAcceleration(vec2 f);
-    
-    // Computes Curtailing Function
-    void updateLRCurtail();
-    
-    // Weighting Functions
-    float weighting(int weightFunction);
     
     // returns the distance between this agent and a given agent
     float getDistance(CrowdAgent * agent);
