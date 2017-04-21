@@ -22,8 +22,13 @@ class HLRCA_CrowdSimApp : public App {
     // appState = 0 -> calculating
     // appState = 1 -> show sim
     int appState = 0;
-    int simTime = 1 * 30;
-    int currentFrame = 0;
+    int simTime;
+    
+    int currentFrame = 0;   // Current frame
+    
+    // Set this variable in seconds
+    int numberOfSeconds = 30;
+    
     
     std::vector<std::vector<vec2>> positions;
     std::vector<Color> agentColor;
@@ -32,6 +37,9 @@ class HLRCA_CrowdSimApp : public App {
 
 // Initialize Simulation
 void HLRCA_CrowdSimApp::setup() {
+    
+    simTime = numberOfSeconds * app::getFrameRate();
+    
     sim->initBidirectionalSim();
     agentColor = sim->getAgentColors();
 }
@@ -71,7 +79,7 @@ void HLRCA_CrowdSimApp::draw() {
     
     else {
         
-        string message = "Playing Simulation - Frame " +  std::to_string(currentFrame) + " of " + std::to_string(simTime);
+        string message = "Playing Simulation @ " + std::to_string(app::getFrameRate()) + "fps - Frame " +  std::to_string(currentFrame) + " of " + std::to_string(simTime);
         
         gl::drawString(message, vec2(10.0f,10.0f));
         
