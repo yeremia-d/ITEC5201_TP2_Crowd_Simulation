@@ -59,10 +59,9 @@ void CrowdAgent::update() {
     
     vec2 vel_c_n = glm::normalize(vel_current);
     
-    float m = glm::length(vel_current);
-    float mC = glm::clamp(m, 0.0f, AgentConst::MAX_AGENT_VEL_MAG);
+    float vel_mag_clamped = glm::clamp(glm::length(vel_current), 0.0f, AgentConst::MAX_AGENT_VEL_MAG);
     
-    position_c   += mC*vel_c_n / ci::app::getFrameRate();
+    position_c   += (vel_mag_clamped*vel_c_n) / ci::app::getFrameRate();
 }
 
 // Computes the acceleration of an agent based on the applied forces and mass

@@ -22,7 +22,7 @@ class HLRCA_CrowdSimApp : public App {
     // appState = 0 -> calculating
     // appState = 1 -> show sim
     int appState = 0;
-    int simTime = 1 * 30;
+    int simTime = 5 * 30;
     int currentFrame = 0;
     
     std::vector<std::vector<vec2>> positions;
