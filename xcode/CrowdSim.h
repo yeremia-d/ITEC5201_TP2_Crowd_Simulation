@@ -33,6 +33,9 @@ public:
     
     // Returns positions of all agents;
     std::vector<vec2> getAgentPositions();
+    
+    // Returns colors of agents
+    std::vector<Color> getAgentColors();
 };
 
 #endif /* CrowdSim_hpp */

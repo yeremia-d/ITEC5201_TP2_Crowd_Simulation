@@ -80,6 +80,7 @@ void CrowdSim::draw() {
     }
 }
 
+// Returns position of agents at simulation's current state
 std::vector<vec2> CrowdSim::getAgentPositions() {
     
     std::vector<vec2> positions;
@@ -89,6 +90,16 @@ std::vector<vec2> CrowdSim::getAgentPositions() {
     }
     
     return positions;
+}
+
+// Returns agent colors
+std::vector<Color> CrowdSim::getAgentColors() {
+    std::vector<Color> colors;
+    for(int i = 0; i < agents.size(); i++) {
+        colors.push_back(agents[i].getColor());
+    }
+    
+    return colors;
 }
 
 

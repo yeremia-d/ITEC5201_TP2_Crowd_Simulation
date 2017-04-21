@@ -46,6 +46,8 @@ vec2    CrowdAgent::getCurrentVelocity() { return vel_current;              }
 float   CrowdAgent::getRadius()          { return AgentConst::AGENT_RADIUS; }
 Color   CrowdAgent::getColor()           { return color;                    }
 
+// Returns clusters
+std::vector<std::vector<AgentCluster>> * CrowdAgent::getClusters() { return &clusters; }
 
 // Crowd Agent Update Loop
 void CrowdAgent::update() {
@@ -57,10 +59,13 @@ void CrowdAgent::update() {
     acc           = glm::normalize(forceToAcceleration(forces));
     vel_current   = ((15.0f * vel_RVO) + acc * 0.05f) * 3.0f;
     
+    // Normalize velocity
     vec2 vel_c_n = glm::normalize(vel_current);
     
+    // Clamp velocity magnitude to max velocity
     float vel_mag_clamped = glm::clamp(glm::length(vel_current), 0.0f, AgentConst::MAX_AGENT_VEL_MAG);
     
+    // Set agent position
     position_c   += (vel_mag_clamped*vel_c_n) / ci::app::getFrameRate();
 }
 
@@ -160,9 +165,6 @@ void CrowdAgent::solveClusterAttributes() {
     }
 }
 
-std::vector<std::vector<AgentCluster>> * CrowdAgent::getClusters() {
-    return &clusters;
-}
 
 
 
