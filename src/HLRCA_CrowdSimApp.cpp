@@ -27,7 +27,7 @@ class HLRCA_CrowdSimApp : public App {
     int currentFrame = 0;   // Current frame
     
     // Set this variable in seconds
-    int numberOfSeconds = 30;
+    int numberOfSeconds = 1;
     
     
     std::vector<std::vector<vec2>> positions;
